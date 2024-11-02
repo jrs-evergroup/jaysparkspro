@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PayPal Button</title>
+  <style>
+    /* Reset default margins and paddings */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set the body to take full height and use Flexbox to center content */
+    body, html {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center; /* Horizontal center */
+      align-items: center;    /* Vertical center */
+      background-color: #f9f9f9; /* Optional: Light background color */
+    }
+
+    /* Container for the PayPal button */
+    #paypal-button-container {
+      text-align: center;
+    }
+  </style>
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAAFvNqH6sq-v-mK30FLtgolc_88YEMpFUIJtcBcXuSwS8A9HszsIDr6aNyZAX9AqP-yr9idd-6Ibrm8HY&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
+</head>
+<body>
+  <div id="paypal-button-container">
+    <div id="paypal-container-D9HM6D5GHW49U"></div>
+  </div>
+
+  <!-- Initialize PayPal Hosted Button -->
+  <script>
+    paypal.HostedButtons({
+      hostedButtonId: "D9HM6D5GHW49U",
+    }).render("#paypal-container-D9HM6D5GHW49U");
+  </script>
+</body>
+</html>
