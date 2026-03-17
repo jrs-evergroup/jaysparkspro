@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi-Fi Woodgrain Button v5</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #edebde;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    padding: 60px 40px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1 {
+    font-family: 'Yeseva One', serif;
+    font-size: 38px;
+    color: #39372d;
+    text-align: center;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  h1 span { color: #458f98; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #39372d;
+    opacity: 0.4;
+    text-align: center;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* =====================
+     WOODGRAIN BUTTON
+  ===================== */
+  .btn-wood {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 54px;
+    padding: 0 36px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(100,50,0,0.3);
+    cursor: pointer;
+    outline: none;
+    background: #c47030; /* fallback while canvas loads */
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow:
+      0 3px 10px rgba(0,0,0,0.18),
+      0 1px 3px rgba(0,0,0,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.25),
+      inset 0 -1px 0 rgba(0,0,0,0.15);
+  }
+
+  .btn-wood canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    display: block;
+    z-index: 0;
+  }
+
+  .btn-wood .wood-sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: 100px;
+    z-index: 2;
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.30) 0%,
+      rgba(255,255,255,0.06) 45%,
+      rgba(0,0,0,0.08) 100%
+    );
+    pointer-events: none;
+  }
+
+  .btn-wood .btn-label {
+    position: relative;
+    z-index: 10;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #3a1800;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  /* HOVER */
+  .btn-wood:hover {
+    border-color: rgba(110,237,252,0.75);
+    box-shadow:
+      0 3px 10px rgba(0,0,0,0.15),
+      0 0 14px rgba(110,237,252,0.4),
+      0 0 32px rgba(110,237,252,0.2),
+      0 0 56px rgba(110,237,252,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.25),
+      inset 0 0 14px rgba(110,237,252,0.07);
+  }
+  .btn-wood:hover .btn-label {
+    color: #6eedfc;
+    text-shadow:
+      0 0 8px rgba(110,237,252,0.65),
+      0 0 20px rgba(110,237,252,0.3),
+      0 1px 0 rgba(0,0,0,0.25);
+  }
+
+  /* PRESS */
+  .btn-wood:active {
+    transform: scale(0.97) translateY(1px);
+    border-color: rgba(110,237,252,0.95);
+    box-shadow:
+      0 1px 4px rgba(0,0,0,0.15),
+      0 0 8px rgba(110,237,252,0.8),
+      0 0 24px rgba(110,237,252,0.5),
+      0 0 52px rgba(110,237,252,0.22),
+      inset 0 1px 3px rgba(0,0,0,0.2),
+      inset 0 0 18px rgba(110,237,252,0.1);
+    transition: box-shadow 0.04s ease, transform 0.04s ease;
+  }
+  .btn-wood:active .btn-label {
+    color: #6eedfc;
+    text-shadow:
+      0 0 14px rgba(110,237,252,0.95),
+      0 0 28px rgba(110,237,252,0.5),
+      0 1px 0 rgba(0,0,0,0.25);
+  }
+
+  /* CLICK PULSE */
+  @keyframes glowPulse {
+    0%   { box-shadow: 0 0 8px rgba(110,237,252,0.75), 0 0 24px rgba(110,237,252,0.48), 0 0 52px rgba(110,237,252,0.22), 0 2px 8px rgba(0,0,0,0.15); }
+    40%  { box-shadow: 0 0 18px rgba(110,237,252,0.95), 0 0 48px rgba(110,237,252,0.58), 0 0 90px rgba(110,237,252,0.25), 0 2px 8px rgba(0,0,0,0.15); }
+    100% { box-shadow: 0 0 6px rgba(110,237,252,0.3), 0 0 20px rgba(110,237,252,0.15), 0 0 48px rgba(110,237,252,0.05), 0 2px 8px rgba(0,0,0,0.15); }
+  }
+  .btn-wood.clicked {
+    animation: glowPulse 0.5s ease-out forwards;
+  }
+
+  /* SMALL */
+  .btn-wood.sm {
+    height: 40px;
+    padding: 0 24px;
+  }
+  .btn-wood.sm .btn-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  /* DARK STRIP */
+  .dark-strip {
+    width: 100%;
+    max-width: 700px;
+    background: #6a9896;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .dark-strip .section-label { color: #edebde; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<h1>The world isn't slowing down.<br><span>Your marketing shouldn't either.</span></h1>
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+  <p class="section-label">Primary CTAs — hover &amp; click me</p>
+  <div class="btn-row">
+    <button class="btn-wood" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">Let's Talk</span>
+    </button>
+    <button class="btn-wood" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">View My Work</span>
+    </button>
+    <button class="btn-wood" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">Newsletter</span>
+    </button>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+  <p class="section-label">Small variant</p>
+  <div class="btn-row">
+    <button class="btn-wood sm" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">Case Study</span>
+    </button>
+    <button class="btn-wood sm" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">Watch Video</span>
+    </button>
+    <button class="btn-wood sm" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">Read More</span>
+    </button>
+  </div>
+</div>
+
+<div class="dark-strip">
+  <p class="section-label">On dark teal background</p>
+  <div class="btn-row">
+    <button class="btn-wood" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">Let's Talk</span>
+    </button>
+    <button class="btn-wood" onclick="pulse(this)">
+      <canvas></canvas><div class="wood-sheen"></div>
+      <span class="btn-label">View My Work</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ── Organic woodgrain painter ──────────────────────────────────────────────
+
+function wave(x, freq, amp, phase) {
+  return Math.sin(x * freq + phase) * amp;
+}
+
+function paintGrain(canvas) {
+  const btn = canvas.parentElement;
+  const W = btn.offsetWidth;
+  const H = btn.offsetHeight;
+  if (!W || !H) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // ── Base warm wood fill ──
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0.00, '#d6894c');
+  bg.addColorStop(0.20, '#be6e20');
+  bg.addColorStop(0.42, '#d48a42');
+  bg.addColorStop(0.58, '#b8641c');
+  bg.addColorStop(0.75, '#cc7832');
+  bg.addColorStop(0.90, '#b26018');
+  bg.addColorStop(1.00, '#c87232');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Unique seed per button ──
+  const seed = Math.random() * 999;
+  const s = (n) => Math.sin(n + seed);
+  const c = (n) => Math.cos(n + seed);
+
+  // ── Wide flowing grain bands (cherry-style sweeping curves) ──
+  const numLines = 44;
+  for (let i = 0; i < numLines; i++) {
+    const t = i / numLines;
+    const baseY = t * H;
+
+    // Organic multi-frequency wave displacement
+    const disp = (x) => {
+      const nx = x / W;
+      return (
+        wave(nx, 2.1 * (1 + s(i*0.4)*0.3), H * 0.12, s(i*1.1)) +
+        wave(nx, 5.3 * (1 + c(i*0.7)*0.2), H * 0.05, c(i*0.9)) +
+        wave(nx, 0.8,                       H * 0.08, s(i*0.3)) +
+        wave(nx, 11.0,                      H * 0.015, s(i*2.1))
+      );
+    };
+
+    // Vary line darkness: lighter mid, darker edges = ring-like depth
+    const edgeness = Math.abs(t - 0.5) * 2; // 0 at center, 1 at edges
+    const alpha = 0.04 + edgeness * 0.10 + Math.abs(s(i * 0.73)) * 0.08;
+    const lw    = 0.4 + Math.abs(s(i * 1.37)) * 1.4;
+
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(35,10,0,${alpha})`;
+    ctx.lineWidth   = lw;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+
+    const steps = 60;
+    for (let j = 0; j <= steps; j++) {
+      const x = (j / steps) * W;
+      const y = baseY + disp(x);
+      j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  // ── Warm sweep highlights (the broad figure-8 swirls in cherry wood) ──
+  for (let i = 0; i < 4; i++) {
+    const cy = (0.15 + i * 0.22 + s(i * 3.1) * 0.05) * H;
+    const bw = (0.08 + Math.abs(s(i * 2.2)) * 0.07) * H;
+
+    const sweepGrad = ctx.createLinearGradient(0, cy - bw, 0, cy + bw);
+    sweepGrad.addColorStop(0,   'rgba(215,155,70,0)');
+    sweepGrad.addColorStop(0.5, `rgba(215,155,70,${0.07 + Math.abs(s(i))*0.06})`);
+    sweepGrad.addColorStop(1,   'rgba(215,155,70,0)');
+
+    ctx.beginPath();
+    ctx.fillStyle = sweepGrad;
+
+    const steps = 30;
+    // Top edge of band
+    for (let j = 0; j <= steps; j++) {
+      const x = (j / steps) * W;
+      const nx = x / W;
+      const yo = cy - bw + wave(nx, 1.8, bw * 0.4, s(i*1.5)) + wave(nx, 4.2, bw * 0.15, c(i*2.1));
+      j === 0 ? ctx.moveTo(x, yo) : ctx.lineTo(x, yo);
+    }
+    // Bottom edge of band (reversed)
+    for (let j = steps; j >= 0; j--) {
+      const x = (j / steps) * W;
+      const nx = x / W;
+      const yo = cy + bw + wave(nx, 1.8, bw * 0.4, s(i*1.5)) + wave(nx, 4.2, bw * 0.15, c(i*2.1));
+      ctx.lineTo(x, yo);
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // ── Short diagonal micro-dashes (oak-style surface texture) ──
+  const dashCount = Math.floor(W * H / 180);
+  for (let i = 0; i < dashCount; i++) {
+    const x     = Math.random() * W;
+    const y     = Math.random() * H;
+    const len   = 3 + Math.random() * 16;
+    const tilt  = (Math.random() - 0.5) * 0.35; // mostly horizontal
+    const alpha = 0.03 + Math.random() * 0.08;
+    const lw    = 0.3 + Math.random() * 0.7;
+
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(28,6,0,${alpha})`;
+    ctx.lineWidth   = lw;
+    ctx.lineCap     = 'round';
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + Math.cos(tilt) * len, y + Math.sin(tilt) * len);
+    ctx.stroke();
+  }
+}
+
+// ── Init: wait for full layout then paint ──
+function initGrain() {
+  document.querySelectorAll('.btn-wood canvas').forEach(canvas => {
+    // Use ResizeObserver to paint as soon as button has real dimensions
+    const ro = new ResizeObserver(() => {
+      if (canvas.parentElement.offsetWidth > 0) {
+        paintGrain(canvas);
+        ro.disconnect();
+      }
+    });
+    ro.observe(canvas.parentElement);
+    // Also try immediately in case already laid out
+    if (canvas.parentElement.offsetWidth > 0) {
+      paintGrain(canvas);
+    }
+  });
+}
+
+function pulse(btn) {
+  btn.classList.remove('clicked');
+  void btn.offsetWidth;
+  btn.classList.add('clicked');
+  btn.addEventListener('animationend', () => btn.classList.remove('clicked'), { once: true });
+}
+
+document.addEventListener('DOMContentLoaded', initGrain);
+</script>
+</body>
+</html>
