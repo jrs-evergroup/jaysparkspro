@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jay Sparks — AI-Driven Content Strategist & Producer</title>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-light:      #edebde;
+  --bg-dark:       #6a9896;
+  --text-light:    #edebde;
+  --text-dark:     #39372d;
+  --accent:        #6eedfc;
+  --accent-stroke: #458f98;
+  --font-head:     'Yeseva One', serif;
+  --font-body:     'Montserrat', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-light);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ──────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(237,235,222,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(69,143,152,0.15);
+}
+.nav-logo {
+  font-family: var(--font-head);
+  font-size: 22px;
+  color: var(--text-dark);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.nav-logo span { color: var(--accent-stroke); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; color: var(--accent-stroke); }
+
+/* ─── HERO SECTION ─────────────────────────────────────────────────────── */
+#hero-wrapper {
+  position: relative;
+  height: 300vh; /* 3 panels × 100vh */
+}
+
+#hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Background seascape video — full bleed */
+#hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Cream desktop surface — bottom bar that bleeds into page */
+.hero-desktop {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 22%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(237,235,222,0.65) 22%,
+    var(--bg-light) 48%,
+    var(--bg-light) 100%
+  );
+  z-index: 3;
+}
+
+/* ── TV MODULE — oversized PNG so TV body fills right half of screen
+   PNG is 1920×1080. TV body lives in right 44% of PNG (left 56% is transparent).
+   Size PNG to ~105vw so TV body ≈ 46vw. Offset right so body hugs right edge.
+   PNG right edge = right:0, so TV body right edge ≈ right: 0 ✓               */
+#tv-frame {
+  position: absolute;
+  right: -2vw;           /* slight bleed, TV body flush with right edge */
+  bottom: 0;
+  width: 105vw;          /* large enough so TV body fills right ~46% */
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+}
+#tv-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+/* Screen video — child of #tv-frame, % of PNG rendered size, always locked
+   Screen opening in PNG (measured as % of full 1920x1080 dims):
+   Center X ≈ 75.6% | Center Y ≈ 47.65%                            */
+#tv-screen-video {
+  position: absolute;
+  /* 1. Pin to the exact X/Y center point of the PNG screen opening */
+  left: 75.6%;
+  top: 47.65%;
+  /* 2. Scale outward from that locked center (+1% bump) */
+  width: 25.6%;
+  height: 30.1%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 6%; /* Matches the CRT curve */
+  /* 3. Center the element perfectly on those left/top coordinates */
+  transform: translate(-50%, -50%) translateZ(0); 
+}
+#tv-screen-video iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* ── HERO TEXT — left column ── */
+.hero-content {
+  position: absolute;
+  left: 7%;
+  top: 14%;
+  width: 44%; /* Increased from 37% to allow the headline to fit on 3 lines */
+  z-index: 8;
+}
+
+/* Panel transitions — slide + fade */
+.hero-panel {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1),
+              transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+}
+.hero-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+/* Exiting panel slides up */
+.hero-panel.exiting {
+  opacity: 0;
+  transform: translateY(-28px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Hero Eyebrows with CSS lines restored */
+.hero-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent-stroke);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+  opacity: 0.9;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 28px; height: 2px;
+  background: var(--accent-stroke);
+  flex-shrink: 0;
+}
+
+/* ── HUGE HEADLINE — the trend ── */
+.hero-headline {
+  font-family: var(--font-head);
+  font-size: clamp(40px, 5.2vw, 78px);
+  color: var(--text-dark);
+  line-height: 1.05;
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+
+/* Sub and detail — justified block text, substantially larger */
+.hero-sub {
+  font-size: 16px; font-weight: 600;
+  color: var(--accent-stroke);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.hero-detail {
+  font-size: 15px; font-weight: 400;
+  color: var(--text-dark);
+  line-height: 1.8; opacity: 0.78;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ── BOTTOM BAR — centered vertically in desktop bar ── */
+.hero-bottom-bar {
+  position: absolute;
+  bottom: 8%;          /* centered in the 26% desktop bar */
+  left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scroll hint — animated arrow above bottom bar */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: hintFadeIn 1s 2s forwards;
+  transition: opacity 0.4s;
+}
+@keyframes hintFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 0.5; transform: translateY(0); }
+}
+.hero-scroll-hint span {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-dark);
+}
+.scroll-arrow {
+  display: flex; flex-direction: column;
+  gap: 3px; align-items: center;
+}
+.scroll-arrow span {
+  display: block;
+  width: 1.5px; height: 6px;
+  background: var(--text-dark);
+  animation: arrowPulse 1.4s ease-in-out infinite;
+  letter-spacing: 0;
+}
+.scroll-arrow span:nth-child(2) { animation-delay: 0.15s; opacity: 0.6; }
+.scroll-arrow span:nth-child(3) { animation-delay: 0.30s; opacity: 0.35; }
+@keyframes arrowPulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(1.4); opacity: 0.6; }
+}
+
+/* Panel number indicator */
+.hero-panel-counter {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.panel-tick {
+  width: 2px; height: 20px;
+  background: var(--text-dark);
+  opacity: 0.15;
+  border-radius: 1px;
+  transition: height 0.3s, opacity 0.3s, background 0.3s;
+  cursor: pointer;
+}
+.panel-tick.active {
+  height: 36px;
+  opacity: 0.8;
+  background: var(--accent-stroke);
+}
+
+/* Panel transition flash — subtle color shift on seascape */
+.hero-flash {
+  position: absolute;
+  inset: 0; z-index: 1;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.hero-flash.flash { opacity: 0.08; }
+
+/* ─── WOODGRAIN BUTTONS ────────────────────────────────────────────────── */
+.btn-wood {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 40px;
+  min-width: 220px;   /* wider for presence even with short labels */
+  border-radius: 100px;
+  border: 1.5px solid rgba(100,50,0,0.3);
+  cursor: pointer;
+  outline: none;
+  background: #c47030;
+  text-decoration: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.15);
+}
+.btn-wood canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border-radius: 100px;
+  display: block; z-index: 0;
+}
+.btn-wood .wood-sheen {
+  position: absolute; inset: 0;
+  border-radius: 100px; z-index: 2;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.06) 45%, rgba(0,0,0,0.08) 100%);
+  pointer-events: none;
+}
+.btn-wood .btn-label {
+  position: relative; z-index: 10;
+  font-family: var(--font-body);
+  font-weight: 700; font-size: 11px;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  color: #3a1800;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+  user-select: none; white-space: nowrap;
+}
+.btn-wood:hover {
+  border-color: rgba(110,237,252,0.75);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15),
+    0 0 14px rgba(110,237,252,0.4), 0 0 32px rgba(110,237,252,0.2),
+    0 0 56px rgba(110,237,252,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.25), inset 0 0 14px rgba(110,237,252,0.07);
+}
+.btn-wood:hover .btn-label {
+  color: #6eedfc;
+  text-shadow: 0 0 8px rgba(110,237,252,0.65), 0 0 20px rgba(110,237,252,0.3), 0 1px 0 rgba(0,0,0,0.25);
+}
+.btn-wood:active {
+  transform: scale(0.97) translateY(1px);
+  border-color: rgba(110,237,252,0.95);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15),
+    0 0 8px rgba(110,237,252,0.8), 0 0 24px rgba(110,237,252,0.5),
+    inset 0 1px 3px rgba(0,0,0,0.2), inset 0 0 18px rgba(110,237,252,0.1);
+}
+.btn-wood:active .btn-label {
+  color: #6eedfc;
+  text-shadow: 0 0 14px rgba(110,237,252,0.95), 0 0 28px rgba(110,237,252,0.5), 0 1px 0 rgba(0,0,0,0.25);
+}
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 8px rgba(110,237,252,0.75), 0 0 24px rgba(110,237,252,0.48), 0 2px 8px rgba(0,0,0,0.15); }
+  40%  { box-shadow: 0 0 18px rgba(110,237,252,0.95), 0 0 48px rgba(110,237,252,0.58), 0 2px 8px rgba(0,0,0,0.15); }
+  100% { box-shadow: 0 0 6px rgba(110,237,252,0.3), 0 0 20px rgba(110,237,252,0.15), 0 2px 8px rgba(0,0,0,0.15); }
+}
+.btn-wood.clicked { animation: glowPulse 0.5s ease-out forwards; }
+.btn-wood.sm { height: 40px; padding: 0 22px; }
+.btn-wood.sm .btn-label { font-size: 10px; }
+
+.btn-group { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+/* ─── SECTION SHARED ───────────────────────────────────────────────────── */
+.section {
+  padding: 100px 6%;
+  position: relative;
+}
+.section-light { background: var(--bg-light); }
+.section-dark  { background: var(--bg-dark); }
+
+/* Main Section Eyebrows with CSS lines restored */
+.section-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent-stroke);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-dark .section-eyebrow { color: var(--accent); }
+.section-eyebrow::before {
+  content: ''; display: block;
+  width: 28px; height: 2px; background: currentColor;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.section-light .section-title { color: var(--text-dark); }
+.section-dark  .section-title { color: var(--text-light); }
+
+.section-sub {
+  font-size: 14px; font-weight: 500;
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 48px;
+  opacity: 0.85;
+}
+.section-light .section-sub { color: var(--accent-stroke); }
+.section-dark  .section-sub { color: var(--accent); }
+
+.section-body {
+  font-size: 14px; line-height: 1.8;
+  max-width: 680px; margin-bottom: 32px;
+}
+.section-light .section-body { color: var(--text-dark); opacity: 0.8; }
+.section-dark  .section-body { color: var(--text-light); opacity: 0.85; }
+
+/* ─── VIDEO EMBEDS ─────────────────────────────────────────────────────── */
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%; /* Default 16:9 Ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: transparent; /* Changed from #111 to naturally hide native iframe borders */
+  margin-bottom: 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+}
+.video-wrap.portrait { padding-bottom: 177.78%; } /* 9:16 Ratio */
+.video-wrap.square { padding-bottom: 100%; }      /* 1:1 Ratio */
+.video-wrap.social { padding-bottom: 125%; }      /* 4:5 Ratio */
+
+.video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+.video-grid-2 { grid-template-columns: 1fr 1fr; }
+.video-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+/* ─── TWO-COL LAYOUT ───────────────────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.two-col.reverse { direction: rtl; }
+.two-col.reverse > * { direction: ltr; }
+
+/* ─── 3-COLUMN BENTO BOX (DecksDirect) ─────────────────────────────────── */
+@media (min-width: 901px) {
+  .bento-3-col {
+    display: grid;
+    /* Pure proportional scaling grid:
+       26% (portrait) vs 24% (stack) aligns the 9:16 height almost flawlessly
+       with three stacked 16:9 videos + the native 24px gaps, completely naturally! 
+    */
+    grid-template-columns: 26% 24% 1fr; 
+    gap: 24px;
+    align-items: center; 
+  }
+  .bento-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+/* Mobile fallback for the bento layout */
+@media (max-width: 900px) {
+  .bento-3-col { display: flex; flex-direction: column; gap: 40px; }
+  .bento-stack { display: flex; flex-direction: column; gap: 24px; }
+}
+
+/* ─── CASE STUDY CARD ──────────────────────────────────────────────────── */
+.cs-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 28px;
+}
+.cs-tag {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px;
+  background: rgba(69,143,152,0.15);
+  color: var(--accent-stroke);
+  border: 1px solid rgba(69,143,152,0.3);
+}
+.section-dark .cs-tag {
+  background: rgba(110,237,252,0.12);
+  color: var(--accent);
+  border-color: rgba(110,237,252,0.3);
+}
+
+.pullquote {
+  border-left: 3px solid var(--accent-stroke);
+  padding: 16px 24px;
+  margin: 32px 0;
+  font-family: var(--font-head);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--text-dark);
+  opacity: 0.85;
+  font-style: italic;
+}
+.section-dark .pullquote {
+  border-color: var(--accent);
+  color: var(--text-light);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 32px 0;
+}
+.result-card {
+  padding: 24px 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+.section-light .result-card { background: rgba(69,143,152,0.08); border: 1px solid rgba(69,143,152,0.15); }
+.section-dark  .result-card { background: rgba(237,235,222,0.08); border: 1px solid rgba(237,235,222,0.15); }
+.result-number {
+  font-family: var(--font-head);
+  font-size: 36px;
+  color: var(--accent-stroke);
+  margin-bottom: 6px;
+}
+.section-dark .result-number { color: var(--accent); }
+.result-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.7;
+}
+.section-light .result-label { color: var(--text-dark); }
+.section-dark  .result-label { color: var(--text-light); }
+
+/* ─── SOCIAL CLIPS GRID ────────────────────────────────────────────────── */
+.clips-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  opacity: 0.5; margin-bottom: 16px;
+}
+.section-light .clips-label { color: var(--text-dark); }
+.section-dark  .clips-label { color: var(--text-light); }
+
+/* ─── DIVIDER ──────────────────────────────────────────────────────────── */
+.divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(to right, transparent, currentColor, transparent);
+  opacity: 0.15; margin: 48px 0;
+}
+
+/* ─── SLIDER ───────────────────────────────────────────────────────────── */
+.slider-section {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+.slider-header {
+  padding: 0 6%;
+  margin-bottom: 24px;
+}
+.slider-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 6%;
+  scroll-padding-left: 6%;
+  scrollbar-width: none; /* Firefox hide scrollbar */
+  -ms-overflow-style: none; /* IE hide scrollbar */
+  scroll-behavior: smooth;
+  /* Invisible edge mask: creates a hard fade out right before the slider buttons */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 6%, black 8%, black 92%, transparent 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 6%, black 8%, black 92%, transparent 94%, transparent 100%);
+}
+.slider-track::-webkit-scrollbar { 
+  display: none; /* Chrome/Safari hide scrollbar */
+}
+.slider-item {
+  flex: 0 0 min(85vw, 360px);
+  scroll-snap-align: start;
+}
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-stroke);
+  color: var(--bg-light);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.slider-btn:hover { 
+  background: var(--text-dark); 
+  transform: translateY(-50%) scale(1.05); 
+}
+.slider-btn.prev { left: 2%; }
+.slider-btn.next { right: 2%; }
+.slider-btn svg { 
+  width: 24px; height: 24px; 
+  fill: none; stroke: currentColor; 
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; 
+}
+
+/* ─── FOOTER / CONTACT ─────────────────────────────────────────────────── */
+#contact {
+  background: var(--text-dark);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#contact::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(110,237,252,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-content-wrapper {
+  width: 100%;
+  /* Pad bottom more to account for absolute footer, perfectly centering the grid */
+  padding: 100px 6% 160px 6%;
+  display: flex;
+  align-items: center;
+}
+.contact-inner { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  width: 100%;
+}
+
+/* Contact specific eyebrow with CSS lines restored */
+.contact-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.contact-eyebrow::before {
+  content: ''; display: block;
+  width: 28px; height: 2px; background: var(--accent);
+  flex-shrink: 0;
+}
+
+.contact-title {
+  font-family: var(--font-head);
+  font-size: clamp(32px, 4vw, 56px);
+  color: var(--text-light);
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+.contact-title span { color: var(--accent); }
+.contact-sub {
+  font-size: 14px; line-height: 1.8;
+  color: var(--text-light); opacity: 0.65;
+  max-width: 560px; margin-bottom: 48px;
+}
+.contact-links {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex; gap: 20px;
+  flex-wrap: wrap; align-items: center;
+  padding: 32px 6%;
+  border-top: 1px solid rgba(237,235,222,0.1);
+  width: 100%;
+  margin: 0;
+}
+.social-link {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-light); opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 0.2s, color 0.2s;
+}
+.social-link:hover { opacity: 1; color: var(--accent); }
+.contact-copy {
+  font-size: 11px; opacity: 0.3;
+  color: var(--text-light);
+  margin-left: auto;
+}
+
+/* ─── SCROLL REVEAL ────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ─── MOBILE ───────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  #tv-frame { width: 108vw; }
+  .hero-content { width: 44%; }
+  .hero-headline { font-size: clamp(32px, 4.2vw, 62px); }
+}
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  #hero-wrapper { height: 400vh; }
+  .hero-content { width: 88%; left: 5%; top: 8%; }
+  .hero-headline { font-size: clamp(30px, 7vw, 52px); }
+  #tv-frame { width: 130vw; right: -5vw; }
+  .hero-bottom-bar { bottom: 2%; }
+  .hero-panel-counter { display: none; }
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+  .two-col.reverse { direction: ltr; }
+  .results-grid { grid-template-columns: 1fr 1fr; }
+  .video-grid-3 { grid-template-columns: 1fr 1fr; }
+  .section { padding: 72px 5%; }
+  .slider-btn { display: none; } /* Hide buttons on mobile in favor of swipe */
+  .contact-content-wrapper { padding: 80px 5% 180px 5%; }
+  .contact-links { padding: 32px 5%; justify-content: center; }
+}
+@media (max-width: 600px) {
+  .hero-headline { font-size: 28px; }
+  .results-grid { grid-template-columns: 1fr; }
+  .video-grid-2, .video-grid-3 { grid-template-columns: 1fr; }
+  #tv-frame { display: none; }
+  #hero-sticky { background: linear-gradient(160deg, #b8d8e8 0%, #d4eaf2 40%, #edebde 100%); }
+  .hero-content { top: 15%; width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Jay<span>Sparks</span>.Pro</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────────────── -->
+<div id="hero-wrapper">
+  <div id="hero-sticky">
+
+    <!-- Flash layer for panel transition feedback -->
+    <div class="hero-flash" id="hero-flash"></div>
+
+    <!-- Background seascape loop — 1920x1080, center/top, cover -->
+    <iframe id="hero-bg-video"
+      src="https://player.vimeo.com/video/1174200258?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1"
+      frameborder="0" allow="autoplay; fullscreen"
+      style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:max(100%,177.78vh);height:max(100%,56.25vw);min-width:100%;min-height:100%;border:none;z-index:0;pointer-events:none;">
+    </iframe>
+
+    <!-- Cream desktop surface — bottom blend into page -->
+    <div class="hero-desktop"></div>
+
+    <!-- TV Frame PNG + screen video together in one container so they scale as one unit -->
+    <div id="tv-frame">
+      <img src="https://raw.githubusercontent.com/jrs-evergroup/jaysparkspro/main/JayPro_hero_foreground_frame_1.png"
+           alt="Vintage JVC TV" />
+      <!-- Screen video positioned as % of the PNG container — moves with it perfectly -->
+      <div id="tv-screen-video">
+        <iframe id="screen-vid-1"
+          src="https://player.vimeo.com/video/1174198908?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1"
+          frameborder="0" allow="autoplay; fullscreen">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Hero copy — upper left -->
+    <div class="hero-content">
+
+      <!-- Panel 1 -->
+      <div class="hero-panel active" id="panel-1">
+        <div class="hero-eyebrow">CONTENT STRATEGY FOR COMPETITIVE MARKETERS</div>
+        <h1 class="hero-headline">Relentless<br>marketing so<br>you can relax.</h1>
+        <p class="hero-sub">I obsess over the weekly trends in marketing, filter the noise, and engineer solutions for competitive sustainability.</p>
+        <p class="hero-detail">Are you sick of hearing about AI? I know I sure am. I get sick of shoveling snow too. Yet both seem to just keep coming. In 2026 AI is an avalanche that gets faster as it moves UP hill. And it has buried the pipeline of traditional Search Engine Marketing. Solutions require persistent attention, agility, and creativity applied to the craft of designing systems as much as stopping the scroll.</p>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="hero-panel" id="panel-2">
+        <div class="hero-eyebrow">WEEKLY STRATEGIC BLUEPRINTS</div>
+        <h1 class="hero-headline">Peace of mind<br>means a<br>mindset reboot.</h1>
+        <p class="hero-sub">My newsletter, "AI Killed the Video Star," is where I share solutions for modern marketing pain points.</p>
+        <p class="hero-detail">Most of my work is strategically motivated and data-driven. The ability to better leverage mountains of messy data is more within reach than ever, and more important than ever to staying competitive. Here I publish actionable strategies and workflows you can use in your business.</p>
+      </div>
+
+      <!-- Panel 3 -->
+      <div class="hero-panel" id="panel-3">
+        <div class="hero-eyebrow">INNOVATING STRATEGIES FOR VIDEO</div>
+        <h1 class="hero-headline">Motion is<br>the true<br>blue ocean.</h1>
+        <p class="hero-sub">I started making videos in high school and never stopped. Sometimes I even get paid for it.</p>
+        <p class="hero-detail">My first job in content marketing was focused on developing business within the indie film scenes of major cities, because broadband was making it possible for the first time to share video files online. Now AI is making video creation capabilities accessible to a wider range of teams than ever. This site is dedicated to featuring some of the videos I've had a hand in making.</p>
+      </div>
+
+    </div><!-- /hero-content -->
+
+    <!-- Bottom bar — CTA button centered above desktop edge -->
+    <div class="hero-bottom-bar">
+      <!-- CTA button — changes per panel -->
+      <a id="hero-cta-btn" href="mailto:jrs@evergroup.media" class="btn-wood" onclick="pulseBtn(this)">
+        <canvas></canvas><div class="wood-sheen"></div>
+        <span class="btn-label" id="hero-cta-label">Get In Touch</span>
+      </a>
+    </div>
+
+    <!-- Vertical tick marks — right edge panel indicator -->
+    <div class="hero-panel-counter">
+      <div class="panel-tick active" onclick="goToPanel(0)"></div>
+      <div class="panel-tick" onclick="goToPanel(1)"></div>
+      <div class="panel-tick" onclick="goToPanel(2)"></div>
+    </div>
+
+  </div><!-- /hero-sticky -->
+</div><!-- /hero-wrapper -->
+
+<!-- ─── SECTION 1: ACCELPRO VIDEO PODCASTS ──────────────────────────────── -->
+<section class="section section-light" id="work">
+  <div class="section-eyebrow">VIDEO FOR MARKETING LAWYERS</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title reveal">Video Podcasts:<br>The New Industry Standard</h2>
+      <p class="section-sub reveal reveal-delay-1">AI tools make video podcasts the most cost-effective form of organic media for small to medium businesses — a production hub around which social production revolves.</p>
+      <div class="cs-meta reveal reveal-delay-2">
+        <span class="cs-tag">Video Production</span>
+        <span class="cs-tag">Podcast</span>
+        <span class="cs-tag">AI-Augmented</span>
+        <span class="cs-tag">Kaplan AccelPro</span>
+      </div>
+      <p class="section-body reveal reveal-delay-2"><strong>AccelPro IP Law</strong> — This video podcast feature episode showcases some of AccelPro's best interviews combining their commentary on the subject of "AI &amp; Copyright." Jay produced hundreds of podcasts for AccelPro (Kaplan) featuring expert attorneys on a variety of subjects. For this special episode, Jay created a digest featuring a curated group of guests all speaking about where AI and copyright law meet.</p>
+      <p class="section-body reveal reveal-delay-3"><strong>AccelPro Employment Law</strong> — How we transformed a Zoom meeting into a live webinar, video podcast &amp; social posts. The full repurposing workflow from raw recording to polished, multi-format deliverable.</p>
+      
+      <!-- Native 16:9 Case Study Box matches layout without forcing rigid stretch heights -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; align-items: center;" class="reveal reveal-delay-3">
+        <div class="video-wrap" style="margin-bottom: 0;">
+          <iframe src="https://player.vimeo.com/video/1013187742?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="AccelPro Case Study"></iframe>
+        </div>
+        <div>
+          <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">Video Case Studies</h3>
+          <p class="section-body" style="margin-bottom: 0; font-size: 13px;">Another opportunity to leverage video in legal storytelling is the video case study format like this one.</p>
+        </div>
+      </div>
+
+    </div>
+    <div>
+      <div class="video-wrap reveal">
+        <iframe src="https://player.vimeo.com/video/1012927200?badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="AccelPro IP Law"></iframe>
+      </div>
+      <div class="video-wrap reveal reveal-delay-1">
+        <iframe src="https://player.vimeo.com/video/1012920241?badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="AccelPro Employment Law"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 2: DECKS DIRECT ─────────────────────────────────────────── -->
+<section class="section section-dark" id="decks-direct">
+  <div class="section-eyebrow">DECKSDIRECT VIDEO TYPES</div>
+  
+  <!-- 3-Column Bento Box: Pure Native Layout = No Letterboxing! -->
+  <div class="bento-3-col">
+    <!-- Left Column: Portrait Feature -->
+    <div class="reveal">
+      <div class="video-wrap portrait" style="margin-bottom: 0;">
+        <iframe src="https://player.vimeo.com/video/1080600751?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Middle Column: Standard 16:9 Stack -->
+    <div class="bento-stack reveal reveal-delay-1">
+      <div class="video-wrap" style="margin-bottom: 0;">
+        <iframe src="https://player.vimeo.com/video/1159085933?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="DecksDirect Customer Success"></iframe>
+      </div>
+      <div class="video-wrap" style="margin-bottom: 0;">
+        <iframe src="https://player.vimeo.com/video/1082201421?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="DecksDirect Hero Ad"></iframe>
+      </div>
+      <div class="video-wrap" style="margin-bottom: 0;">
+        <iframe src="https://player.vimeo.com/video/1158962722?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="DecksDirect Instructional"></iframe>
+      </div>
+    </div>
+
+    <!-- Right Column: Text & Stats -->
+    <div class="reveal reveal-delay-2">
+      <h2 class="section-title">From Static to Cinematic:<br>DecksDirect</h2>
+      <p class="section-sub">How AI helped DecksDirect transcend static ads and launch professional video creative in-house — fast, affordably, and scalably.</p>
+      <div class="cs-meta">
+        <span class="cs-tag">Paid Video Ads</span>
+        <span class="cs-tag">AI Production</span>
+        <span class="cs-tag">Google Demand Gen</span>
+        <span class="cs-tag">OTT</span>
+      </div>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-number">80%</div>
+          <div class="result-label">Cost Reduction</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">67%</div>
+          <div class="result-label">CTR Lift vs Static</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">∞</div>
+          <div class="result-label">Scalable System</div>
+        </div>
+      </div>
+      <p class="section-body">This wasn't just a holiday campaign — it was the launch of a scalable, repeatable system for video-first marketing. By blending AI avatars, licensed footage, and self-produced owned video, we eliminated expenses for actors, locations, and crews while achieving professional polish without compromising brand standards.</p>
+      <p class="section-body" style="font-size:12px;opacity:0.6;margin-top:-16px;margin-bottom: 0;">
+        Generative assets: GPT-4o, Runway Gen 4, ElevenLabs. Shot on DJI Mini 4 Pro &amp; Sony DSLRs. Music: Logic Pro + Suno. Edit: Adobe Premiere Pro.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 3: EARTH ANIMAL + GET JOY ──────────────────────────────── -->
+<section class="section section-light" id="pet-brands">
+  <div class="section-eyebrow">TRANSFORMING CPG PACKAGING &amp; UGC INTO VIDEO ASSETS</div>
+
+  <div class="two-col" style="margin-bottom:64px;">
+    <div>
+      <h2 class="section-title reveal">Customer Reviews as<br>Video Creative</h2>
+      <p class="section-sub reveal reveal-delay-1" style="margin-bottom: 32px;">Why force your TOFU audience to seek out your customer reviews when you can leverage them to boost CTR &amp; lower CAC? Jay built a system for Earth Animal and Get Joy that turns existing product assets and customer reviews into a scaled library of breed-personalized video ads.</p>
+
+      <div class="cs-meta reveal">
+        <span class="cs-tag">Earth Animal</span>
+        <span class="cs-tag">Video Ads</span>
+        <span class="cs-tag">AI Animation</span>
+        <span class="cs-tag">Personalization</span>
+      </div>
+      <p class="section-body reveal reveal-delay-1">Jay took Earth Animal's existing holiday product image assets, deconstructed them, then animated them into a series of videos in different formats leveraging variations in featured dog breeds for more personalized algorithmic strategy.</p>
+      <div class="pullquote reveal reveal-delay-2">
+        "If your content reflects your customers, people will see themselves in your brand."
+      </div>
+    </div>
+    <!-- Pushed down exactly 12px so the visual top of the video aligns with the text cap height -->
+    <div style="margin-top: 12px;">
+      <div class="video-wrap square reveal">
+        <iframe src="https://player.vimeo.com/video/1139374763?badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Earth Animal"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-grid video-grid-3 reveal">
+    <div class="video-wrap portrait" style="margin-bottom:0">
+      <iframe src="https://player.vimeo.com/video/1139374783?badge=0&autopause=0&player_id=0&app_id=58479"
+        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-wrap portrait" style="margin-bottom:0">
+      <iframe src="https://player.vimeo.com/video/1139374709?badge=0&autopause=0&player_id=0&app_id=58479"
+        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-wrap portrait" style="margin-bottom:0">
+      <iframe src="https://player.vimeo.com/video/1139374738?badge=0&autopause=0&player_id=0&app_id=58479"
+        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Side layout swapped via "reverse" class (text right, videos left to maintain diagonal flow) -->
+  <div class="two-col reverse">
+    <div>
+      <div class="cs-meta reveal">
+        <span class="cs-tag">Get Joy</span>
+        <span class="cs-tag">Video Ads</span>
+        <span class="cs-tag">Review-Led Creative</span>
+      </div>
+      <p class="section-body reveal reveal-delay-1">Likewise, Jay took Get Joy's existing product image assets, deconstructed them, then animated them into a series of videos leveraging variations in featured dog breeds. These leverage customer reviews animated onscreen — multiplying assets, publishing frequency, and reach.</p>
+    </div>
+    <div>
+      <div class="video-grid video-grid-2 reveal">
+        <div class="video-wrap portrait" style="margin-bottom:0">
+          <iframe src="https://player.vimeo.com/video/1140182725?badge=0&autopause=0&player_id=0&app_id=58479"
+            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrap portrait" style="margin-bottom:0">
+          <iframe src="https://player.vimeo.com/video/1140182792?badge=0&autopause=0&player_id=0&app_id=58479"
+            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 4: LARS MURRAY / AI AVATARS ─────────────────────────────── -->
+<section class="section section-dark" id="lars-murray">
+  <div class="section-eyebrow">LEVERAGING HUMAN ART IN AI AVATARS</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title reveal">A Better Approach<br>to AI Avatars</h2>
+      <p class="section-sub reveal reveal-delay-1">Deep fake avatars are lame. Do this instead.</p>
+      <div class="cs-meta reveal reveal-delay-2">
+        <span class="cs-tag">AI Avatars</span>
+        <span class="cs-tag">Runway Act One</span>
+        <span class="cs-tag">Podcast</span>
+        <span class="cs-tag">Lars Murray</span>
+      </div>
+      <div class="pullquote reveal reveal-delay-2">"Blown away! Wow, Jay!" — Lars Murray, Unlimited Supply Podcast</div>
+      <p class="section-body reveal reveal-delay-3">Former Pandora exec Lars Murray has created successful products, promotions and businesses for Columbia Records, Sony Music, Virgin, Red Bull, Spotify, Apple, YouTube, Universal, Daft Punk, Pharrell Williams, Gorillaz, and many more.</p>
+      <p class="section-body reveal reveal-delay-3">Instead of attempting to fool audiences with a deep fake, Jay's team used Runway's Act One to create artfully rendered avatars — engaging the established audience while attracting new members, and preserving the authenticity of Lars' real human presence.</p>
+      <p class="section-body reveal" style="font-size:12px;opacity:0.6;">Workflow: AI image render → Green screen trainer → Runway Act One animation → Descript composite &amp; audio optimization</p>
+    </div>
+    <div>
+      <!-- Using square to perfectly frame the 1:1 render of the avatar natively -->
+      <div class="video-wrap square reveal" style="max-width: 400px; margin: 0 auto;">
+        <iframe src="https://player.vimeo.com/video/1046307690?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Unlimited Supply — AI Avatar"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 5: THE REBOOTING ─────────────────────────────────────────── -->
+<section class="section section-light" id="rebooting">
+  <div class="section-eyebrow">MEDIA BUSINESS TALKING TO &amp; ABOUT ITSELF</div>
+  <div class="two-col reverse">
+    <div>
+      <h2 class="section-title reveal">The Rebooting<br>Podcast</h2>
+      <p class="section-sub reveal reveal-delay-1">A podcast for a journalist who makes media about media.</p>
+      <div class="cs-meta reveal reveal-delay-2">
+        <span class="cs-tag">Podcast Production</span>
+        <span class="cs-tag">Social Video</span>
+        <span class="cs-tag">Original Music</span>
+        <span class="cs-tag">Brian Morrissey</span>
+      </div>
+      <p class="section-body reveal reveal-delay-2">Brian Morrissey built Digiday into a media industry standard and became known as the voice of its podcasts, then rode the wave of indie journalists becoming Substack entrepreneurs. He needed a new podcast to expand organic reach and build his real product — a community of affluent listeners and high-ticket intimate events.</p>
+      <p class="section-body reveal reveal-delay-3">Jay approached the design of TRB's podcast soundtrack using analog synthesizers to invoke that era of the past in which we first became fixated on the future. Unlike the "tsunami of content" Brian talked about, TRB's music was 100% original and made by humans.</p>
+      <div class="pullquote reveal reveal-delay-3">
+        In just two years TRB cracked the <strong>seven figure milestone</strong> with a team a fraction of the size it had taken to build Digiday.
+      </div>
+      <div class="pullquote reveal" style="margin-top:0">
+        "Jay is a highly skilled, highly experienced career digital marketing professional with an emphasis on creative content marketing and out-of-the-box problem solving." — Dick Huey, Toolshed
+      </div>
+    </div>
+    <div>
+      <div class="video-wrap reveal">
+        <iframe src="https://player.vimeo.com/video/1013742238?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="The Rebooting Podcast"></iframe>
+      </div>
+      <div class="video-wrap reveal reveal-delay-1">
+        <iframe src="https://player.vimeo.com/video/1013740070?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="The Rebooting Social"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social clips label, placed outside the 100vw breakout to perfectly align with main content -->
+  <p class="clips-label reveal" style="text-align: left; margin-top: 64px;">SOCIAL CLIPS FROM THE REBOOTING</p>
+
+  <!-- Social clips slider -->
+  <div class="slider-section reveal" style="margin-top: 24px;">
+    <div style="position: relative;">
+      <!-- Navigation Arrows -->
+      <button class="slider-btn prev" onclick="scrollSlider(-1)" aria-label="Previous" style="left: 3%;">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="slider-btn next" onclick="scrollSlider(1)" aria-label="Next" style="right: 3%;">
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <!-- Scrollable Track with Strict Edge Masks right before the arrows -->
+      <div class="slider-track" id="social-slider-track">
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013745121?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013745052?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013745073?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013745077?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013745060?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013748635?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013745103?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013744831?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/741277891?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 6: PUMP-N-MUNCH / SASQUATCHI ────────────────────────────── -->
+<section class="section section-dark" id="pumpmunch">
+  <div class="section-eyebrow">GENERATIVE INFLUENCERS FOR SMB'S</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title reveal">The Sasquatchi Tribe<br>Pump-n-Munch</h2>
+      <p class="section-sub reveal reveal-delay-1">Original image and video shot on location, augmented with existing Meta image assets, animated with a chef's blend of AI models.</p>
+      <div class="cs-meta reveal reveal-delay-2">
+        <span class="cs-tag">Commercial</span>
+        <span class="cs-tag">AI Animation</span>
+        <span class="cs-tag">Original Score</span>
+        <span class="cs-tag">Q4 2025</span>
+      </div>
+      <p class="section-body reveal reveal-delay-2">All written copy, scripting, voicing, voice processing, musical composition and editing done by Jay. Shot on location, brought to life with a carefully curated stack of generative AI tools.</p>
+    </div>
+    <div>
+      <div class="video-wrap square reveal">
+        <iframe src="https://player.vimeo.com/video/1147777911?badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Pump-n-Munch Commercial"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT / FOOTER ──────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-content-wrapper">
+    <div class="contact-inner two-col" style="align-items: center;">
+      <div>
+        <div class="contact-eyebrow">SOLVE PROBLEMS. ENJOY DOING IT. ENJOY WHO YOU DO IT WITH.</div>
+        <h2 class="contact-title reveal">The world isn't<br>slowing down.<br><span>Your marketing<br>shouldn't either.</span></h2>
+        <p class="contact-sub reveal reveal-delay-1">I obsess over the weekly trends in marketing, filter the noise, and engineer solutions for competitive sustainability. If that sounds like what you need, let's talk.</p>
+        <div class="btn-group reveal reveal-delay-2">
+          <a href="mailto:jrs@evergroup.media" class="btn-wood" onclick="pulseBtn(this)">
+            <canvas></canvas><div class="wood-sheen"></div>
+            <span class="btn-label">Get In Touch</span>
+          </a>
+          <a href="https://www.linkedin.com/newsletters/ai-killed-the-video-star-7291330418455261185/" target="_blank" class="btn-wood" onclick="pulseBtn(this)">
+            <canvas></canvas><div class="wood-sheen"></div>
+            <span class="btn-label">Newsletter</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Profile Headshot perfectly centered in its column -->
+      <div class="reveal reveal-delay-2" style="display: flex; justify-content: center; align-items: center;">
+        <img src="https://raw.githubusercontent.com/jrs-evergroup/jaysparkspro/main/jay_headshot.jpg" 
+             alt="Jay Sparks" 
+             style="width: 100%; max-width: 400px; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; border: 6px solid var(--accent); box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+      </div>
+    </div>
+  </div>
+
+  <!-- Social links completely detached from layout flow, acting as true footer -->
+  <div class="contact-links reveal reveal-delay-3">
+    <a href="https://www.linkedin.com/in/jaysparks/" target="_blank" class="social-link">LinkedIn</a>
+    <a href="https://www.youtube.com/@AIJay-Pro" target="_blank" class="social-link">YouTube</a>
+    <a href="https://bsky.app/profile/jaysparks.bsky.social" target="_blank" class="social-link">Bluesky</a>
+    <a href="https://x.com/EvergroupMedia" target="_blank" class="social-link">X / Twitter</a>
+    <span class="contact-copy">© 2026 Evergroup LLC</span>
+  </div>
+</section>
+
+<script>
+// ─── WOODGRAIN PAINTER ────────────────────────────────────────────────────
+function wave(x, freq, amp, phase) {
+  return Math.sin(x * freq + phase) * amp;
+}
+function paintGrain(canvas) {
+  const btn = canvas.parentElement;
+  const W = btn.offsetWidth, H = btn.offsetHeight;
+  if (!W || !H) return;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0.00, '#d6894c'); bg.addColorStop(0.20, '#be6e20');
+  bg.addColorStop(0.42, '#d48a42'); bg.addColorStop(0.58, '#b8641c');
+  bg.addColorStop(0.75, '#cc7832'); bg.addColorStop(0.90, '#b26018');
+  bg.addColorStop(1.00, '#c87232');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  const seed = Math.random() * 999;
+  const s = (n) => Math.sin(n + seed), c = (n) => Math.cos(n + seed);
+  const numLines = 44;
+  for (let i = 0; i < numLines; i++) {
+    const t = i / numLines, baseY = t * H;
+    const disp = (x) => {
+      const nx = x / W;
+      return wave(nx, 2.1*(1+s(i*0.4)*0.3), H*0.12, s(i*1.1)) +
+             wave(nx, 5.3*(1+c(i*0.7)*0.2), H*0.05, c(i*0.9)) +
+             wave(nx, 0.8, H*0.08, s(i*0.3)) +
+             wave(nx, 11.0, H*0.015, s(i*2.1));
+    };
+    const edgeness = Math.abs(t - 0.5) * 2;
+    const alpha = 0.04 + edgeness*0.10 + Math.abs(s(i*0.73))*0.08;
+    const lw = 0.4 + Math.abs(s(i*1.37))*1.4;
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(35,10,0,${alpha})`;
+    ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    for (let j = 0; j <= 60; j++) {
+      const x = (j/60)*W, y = baseY + disp(x);
+      j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+  for (let i = 0; i < 4; i++) {
+    const cy = (0.15+i*0.22+s(i*3.1)*0.05)*H;
+    const bw = (0.08+Math.abs(s(i*2.2))*0.07)*H;
+    const sg = ctx.createLinearGradient(0, cy-bw, 0, cy+bw);
+    sg.addColorStop(0, 'rgba(215,155,70,0)');
+    sg.addColorStop(0.5, `rgba(215,155,70,${0.07+Math.abs(s(i))*0.06})`);
+    sg.addColorStop(1, 'rgba(215,155,70,0)');
+    ctx.beginPath(); ctx.fillStyle = sg;
+    for (let j = 0; j <= 30; j++) {
+      const x = (j/30)*W, nx = x/W;
+      const yo = cy - bw + wave(nx, 1.8, bw*0.4, s(i*1.5)) + wave(nx, 4.2, bw*0.15, c(i*2.1));
+      j === 0 ? ctx.moveTo(x, yo) : ctx.lineTo(x, yo);
+    }
+    for (let j = 30; j >= 0; j--) {
+      const x = (j/30)*W, nx = x/W;
+      const yo = cy + bw + wave(nx, 1.8, bw*0.4, s(i*1.5)) + wave(nx, 4.2, bw*0.15, c(i*2.1));
+      ctx.lineTo(x, yo);
+    }
+    ctx.closePath(); ctx.fill();
+  }
+  const dc = Math.floor(W*H/180);
+  for (let i = 0; i < dc; i++) {
+    const x = Math.random()*W, y = Math.random()*H;
+    const len = 3+Math.random()*16, tilt = (Math.random()-0.5)*0.35;
+    const alpha = 0.03+Math.random()*0.08, lw = 0.3+Math.random()*0.7;
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(28,6,0,${alpha})`;
+    ctx.lineWidth = lw; ctx.lineCap = 'round';
+    ctx.moveTo(x, y);
+    ctx.lineTo(x+Math.cos(tilt)*len, y+Math.sin(tilt)*len);
+    ctx.stroke();
+  }
+}
+function initAllGrain() {
+  document.querySelectorAll('.btn-wood canvas').forEach(canvas => {
+    const ro = new ResizeObserver(() => {
+      if (canvas.parentElement.offsetWidth > 0) { paintGrain(canvas); ro.disconnect(); }
+    });
+    ro.observe(canvas.parentElement);
+    if (canvas.parentElement.offsetWidth > 0) paintGrain(canvas);
+  });
+}
+function pulseBtn(btn) {
+  btn.classList.remove('clicked'); void btn.offsetWidth;
+  btn.classList.add('clicked');
+  btn.addEventListener('animationend', () => btn.classList.remove('clicked'), { once: true });
+}
+
+// ─── HERO PANEL SYSTEM ────────────────────────────────────────────────────
+const panelIds   = ['panel-1','panel-2','panel-3'];
+const screenVids = [
+  'https://player.vimeo.com/video/1174198908?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1',
+  'https://player.vimeo.com/video/1174198918?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1',
+  'https://player.vimeo.com/video/1174198936?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1'
+];
+const ctaData = [
+  { label: 'Get In Touch',    href: 'mailto:jrs@evergroup.media', target: '_self' },
+  { label: 'Read on LinkedIn', href: 'https://www.linkedin.com/newsletters/ai-killed-the-video-star-7291330418455261185/', target: '_blank' },
+  { label: 'See Case Studies', href: '#work', target: '_self' }
+];
+
+let currentPanel = 0;
+const ticks  = document.querySelectorAll('.panel-tick');
+const screenIframe = document.getElementById('screen-vid-1');
+const flashEl = document.getElementById('hero-flash');
+const ctaBtn = document.getElementById('hero-cta-btn');
+const ctaLabel = document.getElementById('hero-cta-label');
+
+function triggerFlash() {
+  flashEl.classList.add('flash');
+  setTimeout(() => flashEl.classList.remove('flash'), 180);
+}
+
+function showPanel(idx) {
+  if (idx === currentPanel) return;
+
+  // Exit current
+  const outEl = document.getElementById(panelIds[currentPanel]);
+  outEl.classList.add('exiting');
+  outEl.classList.remove('active');
+  setTimeout(() => outEl.classList.remove('exiting'), 400);
+
+  // Enter new
+  const inEl = document.getElementById(panelIds[idx]);
+  inEl.classList.add('active');
+
+  // Update indicators
+  ticks.forEach((t, i) => t.classList.toggle('active', i === idx));
+
+  // Swap TV screen video
+  screenIframe.src = screenVids[idx];
+
+  // Update CTA button
+  ctaLabel.textContent = ctaData[idx].label;
+  ctaBtn.href = ctaData[idx].href;
+  ctaBtn.target = ctaData[idx].target;
+
+  // Visual flash feedback
+  triggerFlash();
+
+  // Repaint button grain for new button
+  document.querySelectorAll('.btn-wood canvas').forEach(c => {
+    if (c.parentElement.offsetWidth > 0) paintGrain(c);
+  });
+
+  currentPanel = idx;
+}
+
+let isScrollLocked = false;
+let scrollLockTimer = null;
+
+function goToPanel(idx) {
+  // Manually clicking a dot = scroll to that panel's scroll position
+  const wrapper = document.getElementById('hero-wrapper');
+  const wh = window.innerHeight;
+  let targetScroll = 0;
+  if (idx === 1) targetScroll = wh * 0.5;
+  if (idx === 2) targetScroll = wh * 1.0;
+  
+  // Lock scroll for exactly 1 second (enough time for smooth scroll to finish). No infinite extensions!
+  isScrollLocked = true;
+  clearTimeout(scrollLockTimer);
+  scrollLockTimer = setTimeout(() => {
+    isScrollLocked = false;
+  }, 1000);
+  
+  // Add a tiny pixel buffer so the math cleanly registers the new index
+  window.scrollTo({ top: wrapper.offsetTop + targetScroll + 5, behavior: 'smooth' });
+}
+
+// ─── DISCRETE SCROLL LOGIC ────────────────────────────────────────────────
+function handleDiscreteStep(deltaY) {
+    const wrapper = document.getElementById('hero-wrapper');
+    const wh = window.innerHeight;
+    const scrollY = window.scrollY;
+    const offset = wrapper.offsetTop;
+    
+    // Override scroll behavior when we are IN the top hero zone (Panels 1 & 2)
+    if (scrollY <= offset + wh + 5) {
+        if (isScrollLocked) return true; // Swallow event while animating, do NOT extend timer
+        
+        // Threshold to ignore weak inertial "ghost" scrolls from triggering the next slide
+        if (Math.abs(deltaY) < 30) return true; // Swallow it to prevent drift, but don't transition
+        
+        if (deltaY > 0) { // Scrolling DOWN
+            if (currentPanel < 2) {
+                goToPanel(currentPanel + 1);
+                return true;
+            } else {
+                return false; // Let native scroll take over for panel 3's "sticky runway"
+            }
+        } else if (deltaY < 0) { // Scrolling UP
+            if (currentPanel > 0) {
+                goToPanel(currentPanel - 1);
+                return true;
+            } else {
+                // Snap to top perfectly if slightly offset
+                if (scrollY > offset) {
+                    goToPanel(0);
+                    return true;
+                }
+                return false;
+            }
+        }
+    } else if (scrollY > offset + wh + 5 && scrollY < offset + wh + 100 && deltaY < 0) {
+        // If they scroll UP natively back into the snapping zone from the runway
+        if (isScrollLocked) return true;
+        if (Math.abs(deltaY) < 30) return true;
+        goToPanel(2);
+        return true;
+    }
+    return false;
+}
+
+window.addEventListener('wheel', (e) => {
+    if (handleDiscreteStep(e.deltaY)) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+let touchStartY = 0;
+let touchHandled = false;
+
+window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+    touchHandled = false;
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+    if (touchHandled || isScrollLocked) {
+        // If locked or handled, prevent native scrolling in the hero zone
+        const wrapper = document.getElementById('hero-wrapper');
+        if (window.scrollY <= wrapper.offsetTop + window.innerHeight + 5) {
+            e.preventDefault();
+        }
+        return;
+    }
+    const deltaY = touchStartY - e.touches[0].clientY;
+    if (Math.abs(deltaY) > 30) { // 30px threshold for a deliberate swipe
+        if (handleDiscreteStep(deltaY)) {
+            e.preventDefault();
+            touchHandled = true;
+        }
+    }
+}, { passive: false });
+
+// Update hero on scroll — ties panels to scroll position
+function updateHeroOnScroll() {
+  const wrapper = document.getElementById('hero-wrapper');
+  const rect = wrapper.getBoundingClientRect();
+  const totalScroll = Math.max(0, -rect.top);
+  const wh = window.innerHeight;
+
+  // Faster transitions for panels 1 & 2, longer sticky time for panel 3
+  let idx = 0;
+  if (totalScroll >= wh * 1.0) {
+    idx = 2;
+  } else if (totalScroll >= wh * 0.5) {
+    idx = 1;
+  }
+  
+  showPanel(idx);
+}
+
+// ─── NAV SCROLL ───────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const heroHeight = document.getElementById('hero-wrapper').offsetHeight;
+  // Background only kicks in strictly AFTER the hero
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > heroHeight - 80);
+  updateHeroOnScroll();
+  revealOnScroll();
+}, { passive: true });
+
+// ─── SLIDER CONTROLS ──────────────────────────────────────────────────────
+function scrollSlider(direction) {
+  const track = document.getElementById('social-slider-track');
+  // Scroll by one item's width plus the gap size
+  const itemWidth = track.querySelector('.slider-item').offsetWidth + 24;
+  track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+}
+
+// ─── SCROLL REVEAL ────────────────────────────────────────────────────────
+function revealOnScroll() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.88) el.classList.add('visible');
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initAllGrain();
+  revealOnScroll();
+  showPanel(0);
+  
+  // ─── VIMEO AUTO-PAUSE SYNC ────────────────────────────────────────────────
+  const iframes = document.querySelectorAll('iframe[src*="vimeo.com"]');
+  const players = [];
+  
+  iframes.forEach(iframe => {
+    // Ignore background/hero videos that auto-loop
+    if (!iframe.src.includes('background=1') && !iframe.src.includes('autoplay=1')) {
+      try {
+        const player = new Vimeo.Player(iframe);
+        players.push(player);
+        player.on('play', () => {
+          // Pause all other players instantly
+          players.forEach(p => {
+            if (p !== player) {
+              p.pause().catch(e => console.log(e));
+            }
+          });
+        });
+      } catch (e) {
+        console.log("Vimeo player init error:", e);
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
