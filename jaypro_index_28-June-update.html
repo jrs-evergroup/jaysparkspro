@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jay Sparks — AI-Driven Content Strategist & Producer</title>
-<link rel="icon" type="image/png" href="JayPro-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -114,6 +112,7 @@ nav.scrolled {
   z-index: 3;
 }
 
+/* ── TV MODULE ── */
 #tv-frame {
   position: absolute;
   right: -2vw;           /* slight bleed, TV body flush with right edge */
@@ -131,6 +130,7 @@ nav.scrolled {
   z-index: 2;
 }
 
+/* Screen video — child of #tv-frame, % of PNG rendered size, always locked */
 #tv-screen-video {
   position: absolute;
   left: 75.6%;
@@ -154,7 +154,7 @@ nav.scrolled {
   position: absolute;
   left: 7%;
   top: 14%;
-  width: 44%;
+  width: 44%; 
   z-index: 8;
 }
 
@@ -180,6 +180,7 @@ nav.scrolled {
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
+/* Hero Eyebrows with CSS lines */
 .hero-eyebrow {
   font-size: 10px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
@@ -195,6 +196,7 @@ nav.scrolled {
   flex-shrink: 0;
 }
 
+/* ── HUGE HEADLINE ── */
 .hero-headline {
   font-family: var(--font-head);
   font-size: clamp(40px, 5.2vw, 78px);
@@ -204,6 +206,7 @@ nav.scrolled {
   letter-spacing: -0.02em;
 }
 
+/* Sub and detail */
 .hero-sub {
   font-size: 16px; font-weight: 600;
   color: var(--accent-stroke);
@@ -222,9 +225,10 @@ nav.scrolled {
   text-justify: inter-word;
 }
 
+/* ── BOTTOM BAR ── */
 .hero-bottom-bar {
   position: absolute;
-  bottom: 8%;
+  bottom: 8%;          
   left: 0; right: 0;
   z-index: 20;
   display: flex;
@@ -232,6 +236,7 @@ nav.scrolled {
   justify-content: center;
 }
 
+/* Scroll hint */
 .hero-scroll-hint {
   position: absolute;
   bottom: 10%;
@@ -271,6 +276,7 @@ nav.scrolled {
   50% { transform: scaleY(1.4); opacity: 0.6; }
 }
 
+/* Panel number indicator */
 .hero-panel-counter {
   position: absolute;
   top: 50%;
@@ -296,6 +302,7 @@ nav.scrolled {
   background: var(--accent-stroke);
 }
 
+/* Panel transition flash */
 .hero-flash {
   position: absolute;
   inset: 0; z-index: 1;
@@ -314,7 +321,7 @@ nav.scrolled {
   justify-content: center;
   height: 52px;
   padding: 0 40px;
-  min-width: 220px;
+  min-width: 220px;   
   border-radius: 100px;
   border: 1.5px solid rgba(100,50,0,0.3);
   cursor: pointer;
@@ -433,17 +440,17 @@ nav.scrolled {
 /* ─── VIDEO EMBEDS ─────────────────────────────────────────────────────── */
 .video-wrap {
   position: relative;
-  padding-bottom: 56.25%; /* Default 16:9 Ratio */
+  padding-bottom: 56.25%; 
   height: 0;
   overflow: hidden;
   border-radius: 12px;
-  background: transparent;
+  background: transparent; 
   margin-bottom: 24px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.2);
 }
-.video-wrap.portrait { padding-bottom: 177.78%; } /* 9:16 Ratio */
-.video-wrap.square { padding-bottom: 100%; }      /* 1:1 Ratio */
-.video-wrap.social { padding-bottom: 125%; }      /* 4:5 Ratio */
+.video-wrap.portrait { padding-bottom: 177.78%; } 
+.video-wrap.square { padding-bottom: 100%; }      
+.video-wrap.social { padding-bottom: 125%; }      
 
 .video-wrap iframe {
   position: absolute;
@@ -472,7 +479,7 @@ nav.scrolled {
 .two-col.reverse { direction: rtl; }
 .two-col.reverse > * { direction: ltr; }
 
-/* ─── 3-COLUMN BENTO BOX (DecksDirect) ─────────────────────────────────── */
+/* ─── 3-COLUMN BENTO BOX ─────────────────────────────────── */
 @media (min-width: 901px) {
   .bento-3-col {
     display: grid;
@@ -588,14 +595,14 @@ nav.scrolled {
   scroll-snap-type: x mandatory;
   padding: 0 6%;
   scroll-padding-left: 6%;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
   scroll-behavior: smooth;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 6%, black 8%, black 92%, transparent 94%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, transparent 6%, black 8%, black 92%, transparent 94%, transparent 100%);
 }
 .slider-track::-webkit-scrollbar { 
-  display: none;
+  display: none; 
 }
 .slider-item {
   flex: 0 0 min(85vw, 360px);
@@ -745,7 +752,7 @@ nav.scrolled {
   .results-grid { grid-template-columns: 1fr 1fr; }
   .video-grid-3 { grid-template-columns: 1fr 1fr; }
   .section { padding: 72px 5%; }
-  .slider-btn { display: none; }
+  .slider-btn { display: none; } 
   .contact-content-wrapper { padding: 80px 5% 180px 5%; }
   .contact-links { padding: 32px 5%; justify-content: center; }
 }
@@ -772,6 +779,7 @@ nav.scrolled {
 
 <div id="hero-wrapper">
   <div id="hero-sticky">
+
     <div class="hero-flash" id="hero-flash"></div>
 
     <iframe id="hero-bg-video"
@@ -783,7 +791,8 @@ nav.scrolled {
     <div class="hero-desktop"></div>
 
     <div id="tv-frame">
-      <img src="https://raw.githubusercontent.com/jrs-evergroup/jaysparkspro/main/JayPro_hero_foreground_frame_1.png" alt="Vintage JVC TV" />
+      <img src="https://raw.githubusercontent.com/jrs-evergroup/jaysparkspro/main/JayPro_hero_foreground_frame_1.png"
+           alt="Vintage JVC TV" />
       <div id="tv-screen-video">
         <iframe id="screen-vid-1"
           src="https://player.vimeo.com/video/1174198908?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1"
@@ -793,17 +802,18 @@ nav.scrolled {
     </div>
 
     <div class="hero-content">
+
       <div class="hero-panel active" id="panel-1">
-        <div class="hero-eyebrow">CONTENT STRATEGY FOR COMPETITIVE MARKETS</div>
-        <h1 class="hero-headline">The internet<br>is shifting<br>to answers.</h1>
-        <p class="hero-sub">AI is changing how your customers find information. I engineer digital frameworks that ensure your brand remains visible and trusted.</p>
-        <p class="hero-detail">For over a decade, I've designed and executed cross-platform video programs and technical SEO infrastructure. Today, my focus is bridging the gap between traditional content creation and the zero-click realities of Answer Engine Optimization (AEO).</p>
+        <div class="hero-eyebrow">CONTENT STRATEGY FOR COMPETITIVE MARKETERS</div>
+        <h1 class="hero-headline">Relentless<br>marketing so<br>you can relax.</h1>
+        <p class="hero-sub">I obsess over the weekly trends in marketing, filter the noise, and engineer solutions for competitive sustainability.</p>
+        <p class="hero-detail">Are you sick of hearing about AI? I know I sure am. I get sick of shoveling snow too. Yet both seem to just keep coming. In 2026 AI is an avalanche that gets faster as it moves UP hill. And it has buried the pipeline of traditional Search Engine Marketing. Solutions require persistent attention, agility, and creativity applied to the craft of designing systems as much as stopping the scroll.</p>
       </div>
 
       <div class="hero-panel" id="panel-2">
-        <div class="hero-eyebrow">AI-NATIVE MARKETING STRATEGY</div>
-        <h1 class="hero-headline">Human ideas.<br>Automated<br>pipelines.</h1>
-        <p class="hero-sub">AI Killed the Video Star, my weekly newsletter on LinkedIn, is where I share solutions for modern marketing pain points.</p>
+        <div class="hero-eyebrow">A WEEKLY LINKEDIN NEWSLETTER</div>
+        <h1 class="hero-headline">AI Killed<br>the Video<br>Star.</h1>
+        <p class="hero-sub">My weekly newsletter, "AI Killed the Video Star," is where I share solutions for modern marketing pain points.</p>
         <p class="hero-detail">Most of my work is strategically motivated and data-driven. The ability to better leverage mountains of messy data is more within reach than ever, and more important than ever to staying competitive. Here I publish actionable strategies and workflows you can use in your business.</p>
       </div>
 
@@ -830,48 +840,6 @@ nav.scrolled {
   </div>
 </div>
 
-<section class="section section-light" id="short-form">
-  <div class="section-eyebrow">Selections from "AI Killed the Video Star"</div>
-  <h2 class="section-title reveal">Short Form Social Video</h2>
-  <p class="section-sub reveal reveal-delay-1" style="margin-bottom: 48px;">
-    Exploring the edge of engagement with programmatic pipelines, rapid voice generation, and high-frequency deployment formats.
-  </p>
-  
-  <div class="video-grid video-grid-3 reveal reveal-delay-2">
-    <div class="video-wrap portrait">
-      <iframe src="https://player.vimeo.com/video/1199830850?badge=0&autopause=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    </div>
-    <div class="video-wrap portrait">
-      <iframe src="https://player.vimeo.com/video/1199829963?badge=0&autopause=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    </div>
-    <div class="video-wrap portrait">
-      <iframe src="https://player.vimeo.com/video/1199829599?badge=0&autopause=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    </div>
-  </div>
-</section>
-
-<section class="section section-dark" id="pumpmunch">
-  <div class="section-eyebrow">GENERATIVE INFLUENCERS FOR SMB'S</div>
-  <div class="two-col">
-    <div>
-      <h2 class="section-title reveal">The Sasquatchi Tribe<br>Pump-n-Munch</h2>
-      <p class="section-sub reveal reveal-delay-1">Original image and video shot on location, augmented with existing Meta image assets, animated with a chef's blend of AI models.</p>
-      <div class="cs-meta reveal reveal-delay-2">
-        <span class="cs-tag">Commercial</span>
-        <span class="cs-tag">AI Animation</span>
-        <span class="cs-tag">Original Score</span>
-        <span class="cs-tag">Q4 2025</span>
-      </div>
-      <p class="section-body reveal reveal-delay-2">All written copy, scripting, voicing, voice processing, musical composition and editing done by Jay. Shot on location, brought to life with a carefully curated stack of generative AI tools.</p>
-    </div>
-    <div>
-      <div class="video-wrap square reveal">
-        <iframe src="https://player.vimeo.com/video/1147777911?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Pump-n-Munch Commercial"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="section section-light" id="work">
   <div class="section-eyebrow">VIDEO FOR MARKETING LAWYERS</div>
   <div class="two-col">
@@ -879,13 +847,13 @@ nav.scrolled {
       <h2 class="section-title reveal">Video Podcasts:<br>The New Industry Standard</h2>
       <p class="section-sub reveal reveal-delay-1">AI tools make video podcasts the most cost-effective form of organic media for small to medium businesses — a production hub around which social production revolves.</p>
       <div class="cs-meta reveal reveal-delay-2">
-        <span class="cs-tag">Podcasts</span>
-        <span class="cs-tag">B2B Content Strategy</span>
-        <span class="cs-tag">Technical SEO</span>
-        <span class="cs-tag">AEO Frameworks</span>
+        <span class="cs-tag">Legal Tech</span>
+        <span class="cs-tag">Video Podcast</span>
+        <span class="cs-tag">B2B Marketing</span>
+        <span class="cs-tag">System Design</span>
       </div>
-      <p class="section-body reveal reveal-delay-2"><strong>AccelPro IP Law</strong> — Jay engineered the initial pilot program and launch strategy for an innovative legal newsletter network. Features a curated lineup of guests all speaking about where AI and copyright law meet.</p>
-      <p class="section-body reveal reveal-delay-3"><strong>AccelPro Employment Law</strong> — How we transformed a Zoom meeting into a live webinar, video podcast &amp; social posts. The full repurposing workflow from raw recording to polished, multi-format deliverable.</p>
+      <p class="section-body reveal reveal-delay-2"><strong>AccelPro IP Law</strong> — How we created a complete marketing flywheel out of an ongoing series of guests all speaking about where AI and copyright law meet.</p>
+      <p class="section-body reveal reveal-delay-3"><strong>AccelPro Employment Law</strong> — How we transformed a Zoom meeting into a live webinar, video podcast & social posts. The full repurposing workflow from raw recording to polished, multi-format deliverable.</p>
       
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; align-items: center;" class="reveal reveal-delay-3">
         <div class="video-wrap" style="margin-bottom: 0;">
@@ -913,36 +881,43 @@ nav.scrolled {
   <div class="bento-3-col">
     <div class="reveal">
       <div class="video-wrap portrait" style="margin-bottom: 0;">
-        <iframe src="https://player.vimeo.com/video/1080600751?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="DecksDirect Portrait"></iframe>
+        <iframe src="https://player.vimeo.com/video/1080600751?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
     <div class="bento-stack reveal reveal-delay-1">
-      <div class="video-wrap">
-        <iframe src="https://player.vimeo.com/video/1080600812?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="DecksDirect Stack 1"></iframe>
+      <div class="video-wrap" style="margin-bottom: 0;">
+        <iframe src="https://player.vimeo.com/video/1080600109?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="video-wrap" style="margin-bottom: 0;">
-        <iframe src="https://player.vimeo.com/video/1080600839?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="DecksDirect Stack 2"></iframe>
+        <iframe src="https://player.vimeo.com/video/1080600293?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="video-wrap" style="margin-bottom: 0;">
+        <iframe src="https://player.vimeo.com/video/1080600494?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
-    <div class="reveal reveal-delay-2">
-      <h2 class="section-title">The Master Hub Production System</h2>
-      <p class="section-sub">A unified content framework engineered for DecksDirect. One master concept scales effortlessly across 16:9 widescreen feeds, portrait reels, and responsive square modules without compounding production budgets.</p>
-      <div class="cs-meta">
-        <span class="cs-tag">Bento Grid Layout</span>
-        <span class="cs-tag">Omnichannel Scaling</span>
-        <span class="cs-tag">E-Commerce Video</span>
+    <div>
+      <h2 class="section-title reveal reveal-delay-2">A Multi-Format System<br>for E-Commerce</h2>
+      <p class="section-sub reveal reveal-delay-3">Building internal creative infrastructure to handle standard variations across product features, brand identity, and installation documentation.</p>
+      <div class="cs-meta reveal">
+        <span class="cs-tag">DecksDirect</span>
+        <span class="cs-tag">E-Commerce</span>
+        <span class="cs-tag">Product Video</span>
+        <span class="cs-tag">Content Scaling</span>
       </div>
-      <p class="section-body">By designing a modular production matrix that scales from high-impact motion graphic systems down to hyper-efficient customer feedback creative, we achieved true platform contextualization without manual rebuilding.</p>
+      <p class="section-body reveal">By converting a studio workflow into a system of interchangeable graphics templates and self-produced owned video, we eliminated expenses for actors, locations, and crews while achieving professional polish without compromising brand standards.</p>
+      <p class="section-body" style="font-size:12px;opacity:0.6;margin-top:-16px;margin-bottom: 0;">
+        Generative assets: GPT-4o, Runway Gen 4, ElevenLabs. Shot on DJI Mini 4 Pro & Sony DSLRs. Music: Logic Pro + Suno. Edit: Adobe Premiere Pro.
+      </p>
     </div>
   </div>
 </section>
 
 <section class="section section-light" id="pet-brands">
-  <div class="section-eyebrow">TRANSFORMING CPG PACKAGING &amp; UGC INTO VIDEO ASSETS</div>
+  <div class="section-eyebrow">TRANSFORMING CPG PACKAGING & UGC INTO VIDEO ASSETS</div>
   <div class="two-col" style="margin-bottom:64px;">
     <div>
       <h2 class="section-title reveal">Customer Reviews as<br>Video Creative</h2>
-      <p class="section-sub reveal reveal-delay-1" style="margin-bottom: 32px;">Why force your TOFU audience to seek out your customer reviews when you can leverage them to boost CTR &amp; lower CAC? Jay built a system for Earth Animal and Get Joy that turns existing product assets and customer reviews into a scaled library of breed-personalized video ads.</p>
+      <p class="section-sub reveal reveal-delay-1" style="margin-bottom: 32px;">Why force your TOFU audience to seek out your customer reviews when you can leverage them to boost CTR & lower CAC? Jay built a system for Earth Animal and Get Joy that turns existing product assets and customer reviews into a scaled library of breed-personalized video ads.</p>
       <div class="cs-meta reveal">
         <span class="cs-tag">Earth Animal</span>
         <span class="cs-tag">Video Ads</span>
@@ -950,7 +925,9 @@ nav.scrolled {
         <span class="cs-tag">Personalization</span>
       </div>
       <p class="section-body reveal reveal-delay-1">Jay took Earth Animal's existing holiday product image assets, deconstructed them, then animated them into a series of videos in different formats leveraging variations in featured dog breeds for more personalized algorithmic strategy.</p>
-      <div class="pullquote reveal reveal-delay-2"> "If your content reflects your customers, people will see themselves in your brand." </div>
+      <div class="pullquote reveal reveal-delay-2">
+        "If your content reflects your customers, people will see themselves in your brand."
+      </div>
     </div>
     <div style="margin-top: 12px;">
       <div class="video-wrap square reveal">
@@ -958,23 +935,41 @@ nav.scrolled {
       </div>
     </div>
   </div>
+
   <div class="video-grid video-grid-3 reveal">
+    <div class="video-wrap portrait" style="margin-bottom:0">
+      <iframe src="https://player.vimeo.com/video/1140182559?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-wrap portrait" style="margin-bottom:0">
+      <iframe src="https://player.vimeo.com/video/1140182613?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-wrap portrait" style="margin-bottom:0">
+      <iframe src="https://player.vimeo.com/video/1140182664?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="two-col" style="align-items: center; margin-top: 48px;">
     <div>
-      <p class="clips-label">Get Joy — Premium Freeze Dried Review</p>
-      <div class="video-wrap social" style="margin-bottom:0">
-        <iframe src="https://player.vimeo.com/video/1140182601?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <h2 class="section-title reveal">UGC Scaling Engine:<br>Get Joy Pet Food</h2>
+      <p class="section-sub reveal reveal-delay-1">Scale your social ad testing without scaling your production budget.</p>
+      <div class="cs-meta reveal">
+        <span class="cs-tag">Get Joy</span>
+        <span class="cs-tag">CPG Ads</span>
+        <span class="cs-tag">UGC Content</span>
+        <span class="cs-tag">Paid Social</span>
       </div>
+      <p class="section-body reveal reveal-delay-2">By engineering a repeatable structure for UGC assembly—pairing real customer audio logs with high-impact product b-roll—we delivered a system capable of outputting dozens of hyper-targeted ad permutations weekly, lowering acquisition costs across all major channels while building brand equity through genuine customer voices.</p>
     </div>
     <div>
-      <p class="clips-label">Get Joy — Fresh Freeze Dried Review</p>
-      <div class="video-wrap social" style="margin-bottom:0">
-        <iframe src="https://player.vimeo.com/video/1140182654?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-    <div>
-      <p class="clips-label">Get Joy — Portioned To Order Review</p>
-      <div class="video-wrap social" style="margin-bottom:0">
-        <iframe src="https://player.vimeo.com/video/1140182691?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-grid video-grid-2 reveal">
+        <div class="video-wrap portrait" style="margin-bottom:0">
+          <iframe src="https://player.vimeo.com/video/1140182725?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrap portrait" style="margin-bottom:0">
+          <iframe src="https://player.vimeo.com/video/1140182792?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -995,31 +990,35 @@ nav.scrolled {
       <div class="pullquote reveal reveal-delay-2">"Blown away! Wow, Jay!" — Lars Murray, Unlimited Supply Podcast</div>
       <p class="section-body reveal reveal-delay-3">Former Pandora exec Lars Murray has created successful products, promotions and businesses for Columbia Records, Sony Music, Virgin, Red Bull, Spotify, Apple, YouTube, Universal, Daft Punk, Pharrell Williams, Gorillaz, and many more.</p>
       <p class="section-body reveal reveal-delay-3">Instead of attempting to fool audiences with a deep fake, Jay's team used Runway's Act One to create artfully rendered avatars — engaging the established audience while attracting new members, and preserving the authenticity of Lars' real human presence.</p>
-      <p class="section-body reveal" style="font-size:12px;opacity:0.6;">Workflow: AI image render → Green screen trainer → Runway Act One animation → Descript composite &amp; audio optimization</p>
+      <p class="section-body reveal" style="font-size:12px;opacity:0.6;">Workflow: AI image render → Green screen trainer → Runway Act One animation → Descript composite & audio optimization</p>
     </div>
     <div>
       <div class="video-wrap square reveal" style="max-width: 400px; margin: 0 auto;">
-        <iframe src="https://player.vimeo.com/video/1046307690?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://player.vimeo.com/video/1046307690?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Lars Murray Avatar"></iframe>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section-light" id="rebooting">
-  <div class="section-eyebrow">VIDEO WORKFLOW FOR INDUSTRY ANALYSTS</div>
+<section class="section section-light" id="newsletter">
+  <div class="section-eyebrow">THE REBOOTING WITH BRIAN MORRISSEY</div>
   <div class="two-col">
     <div>
-      <h2 class="section-title reveal">Building The Rebooting<br>Video Pipeline</h2>
-      <p class="section-sub reveal reveal-delay-1">Former Digiday Editor-in-Chief Brian Morrissey built the premiere analytical brand for digital media operators. Jay built their video monetization framework.</p>
+      <h2 class="section-title reveal">B2B Newsletter Growth Engine</h2>
+      <p class="section-sub reveal reveal-delay-1">Brian Morrissey's "The Rebooting" is the definitive industry source on the business models driving modern media.</p>
       <div class="cs-meta reveal reveal-delay-2">
-        <span class="cs-tag">Publishing Strategy</span>
+        <span class="cs-tag">The Rebooting</span>
+        <span class="cs-tag">B2B Content</span>
         <span class="cs-tag">Audio Branding</span>
-        <span class="cs-tag">Social Pipelines</span>
+        <span class="cs-tag">Original Score</span>
       </div>
-      <p class="section-body reveal reveal-delay-2">Jay took a comprehensive approach to content workflow automation for TRB, turning long form recordings into social video streams across platforms. By linking AI-native editing frameworks, we created an active organic footprint with low manual asset overhead.</p>
       <p class="section-body reveal reveal-delay-3">Jay approached the design of TRB's podcast soundtrack using analog synthesizers to invoke that era of the past in which we first became fixated on the future. Unlike the "tsunami of content" Brian talked about, TRB's music was 100% original and made by humans.</p>
-      <div class="pullquote reveal reveal-delay-3"> In just two years TRB cracked the <strong>seven figure milestone</strong> with a team a fraction of the size it had taken to build Digiday. </div>
-      <div class="pullquote reveal" style="margin-top:0"> "Jay is a highly skilled, highly experienced career digital marketing professional with an emphasis on creative content marketing and out-of-the-box problem solving." — Dick Huey, Toolshed </div>
+      <div class="pullquote reveal reveal-delay-3">
+        In just two years TRB cracked the <strong>seven figure milestone</strong> with a team a fraction of the size it had taken to build Digiday.
+      </div>
+      <div class="pullquote reveal" style="margin-top:0">
+        "Jay is a highly skilled, highly experienced career digital marketing professional with an emphasis on creative content marketing and out-of-the-box problem solving." — Dick Huey, Toolshed
+      </div>
     </div>
     <div>
       <div class="video-wrap reveal">
@@ -1032,7 +1031,7 @@ nav.scrolled {
   </div>
 
   <p class="clips-label reveal" style="text-align: left; margin-top: 64px;">SOCIAL CLIPS FROM THE REBOOTING</p>
-  
+
   <div class="slider-section reveal" style="margin-top: 24px;">
     <div style="position: relative;">
       <button class="slider-btn prev" onclick="scrollSlider(-1)" aria-label="Previous" style="left: 3%;">
@@ -1041,38 +1040,65 @@ nav.scrolled {
       <button class="slider-btn next" onclick="scrollSlider(1)" aria-label="Next" style="right: 3%;">
         <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
       </button>
-      
+
       <div class="slider-track" id="social-slider-track">
         <div class="slider-item">
           <div class="video-wrap square" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1013745121?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://player.vimeo.com/video/1013745121?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 1"></iframe>
           </div>
         </div>
         <div class="slider-item">
           <div class="video-wrap square" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1013744315?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://player.vimeo.com/video/1013745265?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 2"></iframe>
           </div>
         </div>
         <div class="slider-item">
           <div class="video-wrap square" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1013744047?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://player.vimeo.com/video/1013745421?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 3"></iframe>
           </div>
         </div>
         <div class="slider-item">
           <div class="video-wrap square" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1013743519?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://player.vimeo.com/video/1013745671?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 4"></iframe>
           </div>
         </div>
         <div class="slider-item">
           <div class="video-wrap square" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1013743329?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://player.vimeo.com/video/1013745913?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 5"></iframe>
           </div>
         </div>
         <div class="slider-item">
           <div class="video-wrap square" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1013742464?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://player.vimeo.com/video/1013746143?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 6"></iframe>
           </div>
         </div>
+        <div class="slider-item">
+          <div class="video-wrap square" style="margin-bottom:0">
+            <iframe src="https://player.vimeo.com/video/1013746356?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Clip 7"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="pumpmunch">
+  <div class="section-eyebrow">GENERATIVE INFLUENCERS FOR SMB'S</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title reveal">The Sasquatchi Tribe<br>Pump-n-Munch</h2>
+      <p class="section-sub reveal reveal-delay-1">Original image and video shot on location, augmented with existing Meta image assets, animated with a chef's blend of AI models.</p>
+      <div class="cs-meta reveal reveal-delay-2">
+        <span class="cs-tag">Commercial</span>
+        <span class="cs-tag">AI Animation</span>
+        <span class="cs-tag">Original Score</span>
+        <span class="cs-tag">Q4 2025</span>
+      </div>
+      <p class="section-body reveal reveal-delay-2">All written copy, scripting, voicing, voice processing, musical composition and editing done by Jay. Shot on location, brought to life with a carefully curated stack of generative AI tools.</p>
+    </div>
+    <div>
+      <div class="video-wrap square reveal">
+        <iframe src="https://player.vimeo.com/video/1147777911?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Pump-n-Munch Commercial"></iframe>
       </div>
     </div>
   </div>
@@ -1096,108 +1122,90 @@ nav.scrolled {
           </a>
         </div>
       </div>
-      
-      <div class="video-grid video-grid-2 reveal reveal-delay-1">
-        <div>
-          <p class="clips-label">AI Killed the Video Star — Trailer</p>
-          <div class="video-wrap portrait" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1140182725?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div>
-          <p class="clips-label">AI Killed the Video Star — Workflow</p>
-          <div class="video-wrap portrait" style="margin-bottom:0">
-            <iframe src="https://player.vimeo.com/video/1140182792?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
+      <div class="headshot-wrap reveal reveal-delay-3" style="max-width: 400px; margin: 0 auto;">
+         <img src="./jaypro_index_28-June-update_files/jay_headshot.jpg" alt="Jay Sparks" style="width:100%; height:auto; border-radius:12px; box-shadow: 0 8px 40px rgba(0,0,0,0.3);">
       </div>
     </div>
-    
-    <div class="contact-links">
-      <a href="https://www.linkedin.com/in/jaysparks/" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
-      <a href="https://x.com/EvergroupMedia" target="_blank" rel="noopener" class="social-link">X / Twitter</a>
-      <a href="https://vimeo.com/evergroup" target="_blank" rel="noopener" class="social-link">Vimeo</a>
-      <span class="contact-copy">© 2026 Evergroup LLC</span>
-    </div>
+  </div>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/jaysparks/" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
+    <span class="contact-copy">© 2026 Evergroup LLC</span>
   </div>
 </section>
 
 <script>
-function initAllGrain() {
-  document.querySelectorAll('.btn-wood').forEach(btn => {
-    const canvas = btn.querySelector('canvas');
-    if (!canvas) return;
-    const W = canvas.parentElement.offsetWidth;
-    const H = canvas.parentElement.offsetHeight;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-    const bg = ctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0.00, '#d6894c');
-    bg.addColorStop(0.20, '#be6e20');
-    bg.addColorStop(0.42, '#d48a42');
-    bg.addColorStop(0.58, '#b8641c');
-    bg.addColorStop(0.75, '#cc7832');
-    bg.addColorStop(0.90, '#b26018');
-    bg.addColorStop(1.00, '#c87232');
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, W, H);
-    
-    const wave = (x, freq, amp, phase) => Math.sin(x * freq * Math.PI * 2 + phase) * amp;
-    const seed = Math.random() * 999;
-    const s = (n) => Math.sin(n + seed), c = (n) => Math.cos(n + seed);
-    const numLines = 44;
-    for (let i = 0; i < numLines; i++) {
-      const t = i / numLines, baseY = t * H;
-      const disp = (x) => {
-        const nx = x / W;
-        return wave(nx, 2.1*(1+s(i*0.4)*0.3), H*0.12, s(i*1.1)) + 
-               wave(nx, 5.3*(1+c(i*0.7)*0.2), H*0.05, c(i*0.9)) + 
-               wave(nx, 0.8, H*0.08, s(i*0.3)) + 
-               wave(nx, 11.0, H*0.015, s(i*2.1));
-      };
-      const edgeness = Math.abs(t - 0.5) * 2;
-      const alpha = 0.04 + edgeness*0.10 + Math.abs(s(i*0.73))*0.08;
-      const lw = 0.4 + Math.abs(s(i*1.37))*1.4;
-      ctx.beginPath();
-      ctx.strokeStyle = `rgba(35,10,0,${alpha})`;
-      ctx.lineWidth = lw;
-      for (let x = -10; x <= W + 10; x += 3) {
-        const y = baseY + disp(x);
-        if (x === -10) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-    }
-    
-    const paintGrain = (cv) => {
-      const cx = cv.getContext('2d');
-      const imgData = cx.getImageData(0,0,cv.width,cv.height);
-      const data = imgData.data;
-      for (let i=0; i<data.length; i+=4) {
-        const noise = (Math.random() - 0.5) * 11.5;
-        data[i] = Math.max(0, Math.min(255, data[i]+noise));
-        data[i+1] = Math.max(0, Math.min(255, data[i+1]+noise*0.7));
-        data[i+2] = Math.max(0, Math.min(255, data[i+2]+noise*0.4));
-      }
-      cx.putImageData(imgData, 0, 0);
+// ─── GENERAL GRAIN CANVAS GENERATOR ────────────────────────────────────────
+function paintGrain(canvas) {
+  const ctx = canvas.getContext('2d');
+  const W = canvas.parentElement.offsetWidth;
+  const H = canvas.parentElement.offsetHeight;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+
+  ctx.scale(dpr, dpr);
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0.00, '#d6894c');
+  bg.addColorStop(0.20, '#be6e20');
+  bg.addColorStop(0.42, '#d48a42');
+  bg.addColorStop(0.58, '#b8641c');
+  bg.addColorStop(0.75, '#cc7832');
+  bg.addColorStop(0.90, '#b26018');
+  bg.addColorStop(1.00, '#c87232');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  const seed = Math.random() * 999;
+  const s = (n) => Math.sin(n + seed), c = (n) => Math.cos(n + seed);
+  const numLines = 44;
+  
+  for (let i = 0; i < numLines; i++) {
+    const t = i / numLines, baseY = t * H;
+    const wave = (x, freq, amp, phase) => Math.sin(x * freq + phase) * amp;
+    const disp = (x) => {
+      const nx = x / W;
+      return wave(nx, 2.1*(1+s(i*0.4)*0.3), H*0.12, s(i*1.1)) + 
+             wave(nx, 5.3*(1+c(i*0.7)*0.2), H*0.05, c(i*0.9)) + 
+             wave(nx, 0.8, H*0.08, s(i*0.3)) + 
+             wave(nx, 11.0, H*0.015, s(i*2.1));
     };
-    
-    if (typeof ResizeObserver !== 'undefined') {
-      const ro = new ResizeObserver(() => {
-        if (canvas.parentElement.offsetWidth > 0) {
-          paintGrain(canvas);
-          ro.disconnect();
-        }
-      });
-      ro.observe(btn);
-    } else {
-      paintGrain(canvas);
+    const edgeness = Math.abs(t - 0.5) * 2;
+    const alpha = 0.04 + edgeness*0.10 + Math.abs(s(i*0.73))*0.08;
+    const lw = 0.4 + Math.abs(s(i*1.37))*1.4;
+
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(35,10,0,${alpha})`;
+    ctx.lineWidth = lw;
+    ctx.moveTo(0, baseY + disp(0));
+    for (let x = 4; x <= W; x += 4) {
+      ctx.lineTo(x, baseY + disp(x));
     }
+    ctx.stroke();
+  }
+
+  const imgData = ctx.getImageData(0, 0, W*dpr, H*dpr);
+  const data = imgData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const noise = (Math.random() - 0.5) * 11.5;
+    data[i]   = Math.min(255, Math.max(0, data[i]   + noise));
+    data[i+1] = Math.min(255, Math.max(0, data[i+1] + noise));
+    data[i+2] = Math.min(255, Math.max(0, data[i+2] + noise));
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function initAllGrain() {
+  document.querySelectorAll('.btn-wood canvas').forEach(canvas => {
+    const ro = new ResizeObserver(() => {
+      if (canvas.parentElement.offsetWidth > 0) {
+        paintGrain(canvas);
+        ro.disconnect();
+      }
+    });
+    ro.observe(canvas.parentElement);
+    if (canvas.parentElement.offsetWidth > 0) paintGrain(canvas);
   });
 }
 
@@ -1208,7 +1216,7 @@ function pulseBtn(btn) {
   btn.addEventListener('animationend', () => btn.classList.remove('clicked'), { once: true });
 }
 
-/* ─── HERO PANEL SYSTEM ──────────────────────────────────────────────────── */
+// ─── HERO PANEL SYSTEM ────────────────────────────────────────────────────
 const panelIds = ['panel-1','panel-2','panel-3'];
 const screenVids = [
   'https://player.vimeo.com/video/1174198908?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1',
@@ -1234,65 +1242,88 @@ function triggerFlash() {
 }
 
 function showPanel(idx) {
-  if (idx === currentPanel && document.getElementById(panelIds[idx]).classList.contains('active')) return;
+  if (idx === currentPanel) return;
+
+  const outEl = document.getElementById(panelIds[currentPanel]);
+  const inEl = document.getElementById(panelIds[idx]);
+
+  outEl.classList.remove('active');
+  outEl.classList.add('exiting');
+  
   triggerFlash();
-  panelIds.forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (i === idx) {
-      el.className = 'hero-panel active';
-    } else if (i === currentPanel) {
-      el.className = 'hero-panel exiting';
-      setTimeout(() => { if (el.className === 'hero-panel exiting') el.className = 'hero-panel'; }, 550);
-    } else {
-      el.className = 'hero-panel';
-    }
-  });
-  ticks.forEach((tick, i) => tick.classList.toggle('active', i === idx));
-  if (screenIframe) screenIframe.src = screenVids[idx];
-  if (ctaBtn && ctaData[idx]) {
+
+  setTimeout(() => {
+    outEl.classList.remove('exiting');
+    inEl.classList.add('active');
+    screenIframe.src = screenVids[idx];
+    
     ctaBtn.href = ctaData[idx].href;
     ctaBtn.target = ctaData[idx].target;
-    if (ctaLabel) ctaLabel.innerText = ctaData[idx].label;
-  }
+    ctaLabel.textContent = ctaData[idx].label;
+  }, 220);
+
+  ticks[currentPanel].classList.remove('active');
+  ticks[idx].classList.add('active');
   currentPanel = idx;
 }
 
 function goToPanel(idx) {
-  if (idx < 0 || idx > 2) return;
+  if (isScrollLocked || idx === currentPanel) return;
+  lockScrollTemporarily();
   showPanel(idx);
-  const wh = window.innerHeight;
-  const targetScroll = (idx * wh);
-  isScrollLocked = true;
-  window.scrollTo({ top: targetScroll, behavior: 'auto' });
-  setTimeout(() => { isScrollLocked = false; }, 600);
 }
 
 let isScrollLocked = false;
+function lockScrollTemporarily() {
+  isScrollLocked = true;
+  setTimeout(() => { isScrollLocked = false; }, 700);
+}
+
 function updateHeroOnScroll() {
-  if (isScrollLocked) return;
-  const sy = window.scrollY;
+  const wrapper = document.getElementById('hero-wrapper');
+  const sticky = document.getElementById('hero-sticky');
+  if (!wrapper || !sticky) return;
+
+  const top = wrapper.offsetTop;
+  const totalH = wrapper.offsetHeight;
   const wh = window.innerHeight;
-  const panelProgress = sy / wh;
-  let targetPanel = Math.floor(panelProgress + 0.35);
-  targetPanel = Math.max(0, Math.min(2, targetPanel));
-  if (targetPanel !== currentPanel && sy < wh * 2 + 80) {
+  const scrollY = window.scrollY;
+
+  if (scrollY < top) {
+    if (currentPanel !== 0) showPanel(0);
+    return;
+  }
+  if (scrollY > top + totalH - wh - 10) {
+    if (currentPanel !== 2) showPanel(2);
+    return;
+  }
+
+  const relativeProgress = (scrollY - top) / (totalH - wh);
+  const targetPanel = Math.min(2, Math.floor(relativeProgress * 3));
+  if (targetPanel !== currentPanel && !isScrollLocked) {
+    lockScrollTemporarily();
     showPanel(targetPanel);
   }
 }
 
 function handleDiscreteStep(deltaY) {
-  const scrollY = window.scrollY;
+  const wrapper = document.getElementById('hero-wrapper');
+  if (!wrapper) return false;
+
+  const offset = wrapper.offsetTop;
   const wh = window.innerHeight;
-  const offset = 0;
-  if (scrollY >= offset - 5 && scrollY <= offset + (wh * 2) + 5) {
+  const scrollY = window.scrollY;
+
+  if (scrollY >= offset - 5 && scrollY < offset + wh * 2 + 5) {
     if (isScrollLocked) return true;
-    if (Math.abs(deltaY) < 30) return true;
+    if (Math.abs(deltaY) < 30) return true; 
+
     if (deltaY > 0) {
       if (currentPanel < 2) {
         goToPanel(currentPanel + 1);
         return true;
       } else {
-        return false;
+        return false; 
       }
     } else if (deltaY < 0) {
       if (currentPanel > 0) {
@@ -1306,7 +1337,7 @@ function handleDiscreteStep(deltaY) {
         return false;
       }
     }
-  } else if (scrollY > offset + wh + 5 && scrollY < offset + wh + 100 && deltaY < 0) {
+  } else if (scrollY > offset + wh * 2 + 5 && scrollY < offset + wh * 2 + 100 && deltaY < 0) {
     if (isScrollLocked) return true;
     if (Math.abs(deltaY) < 30) return true;
     goToPanel(2);
@@ -1327,17 +1358,17 @@ window.addEventListener('touchstart', (e) => {
 }, { passive: true });
 
 window.addEventListener('touchmove', (e) => {
-  const touchEndY = e.touches[0].clientY;
-  const deltaY = touchStartY - touchEndY;
-  if (Math.abs(deltaY) > 45) {
+  const touchY = e.touches[0].clientY;
+  const deltaY = touchStartY - touchY;
+  if (Math.abs(deltaY) > 40) {
     if (handleDiscreteStep(deltaY)) {
       e.preventDefault();
-      touchStartY = touchEndY;
+      touchStartY = touchY; 
     }
   }
 }, { passive: false });
 
-/* ─── NAV SCROLL ─────────────────────────────────────────────────────────── */
+// ─── NAV SCROLL ───────────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
   const heroHeight = document.getElementById('hero-wrapper').offsetHeight;
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > heroHeight - 80);
@@ -1345,14 +1376,14 @@ window.addEventListener('scroll', () => {
   revealOnScroll();
 }, { passive: true });
 
-/* ─── SLIDER CONTROLS ────────────────────────────────────────────────────── */
+// ─── SLIDER CONTROLS ──────────────────────────────────────────────────────
 function scrollSlider(direction) {
   const track = document.getElementById('social-slider-track');
   const itemWidth = track.querySelector('.slider-item').offsetWidth + 24;
   track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
 }
 
-/* ─── SCROLL REVEAL ──────────────────────────────────────────────────────── */
+// ─── SCROLL REVEAL ────────────────────────────────────────────────────────
 function revealOnScroll() {
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
     const rect = el.getBoundingClientRect();
@@ -1360,13 +1391,11 @@ function revealOnScroll() {
   });
 }
 
-/* ─── INIT ───────────────────────────────────────────────────────────────── */
+// ─── INIT ─────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initAllGrain();
   revealOnScroll();
-  showPanel(0);
   
-  /* ─── VIMEO AUTO-PAUSE SYNC ──────────────────────────────────────────────── */
   const iframes = document.querySelectorAll('iframe[src*="vimeo.com"]');
   const players = [];
   
@@ -1383,11 +1412,12 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         });
       } catch (e) {
-        console.log("Vimeo sync error setup", e);
+        console.log("Vimeo Sync Setup Pending Initialization Framework Match: ", e);
       }
     }
   });
 });
 </script>
+
 </body>
 </html>
