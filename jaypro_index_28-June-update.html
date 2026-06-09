@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)file:///Users/jayraysparks/Downloads/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jay Sparks — AI-Driven Content Strategist &amp; Producer</title>
+  <link rel="icon" type="image/png" href="file:///Users/jayraysparks/Downloads/JayPro-icon.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-dark: #0e0e0e;
+      --bg-mid: #141414;
+      --bg-light: #f4f4f2;
+      --text-light: #f4f4f2;
+      --text-dark: #0e0e0e;
+      --accent: #c8f135;
+      --muted: #888;
+      --tag-bg: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text-light); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text-light); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding-top: 4rem;
+    }
+    .hero-bg-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .hero-bg-video iframe {
+      width: 100%; height: 100%;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(1.15);
+      border: none;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(14,14,14,0.55) 0%, rgba(14,14,14,0.3) 50%, rgba(14,14,14,0.75) 100%);
+      z-index: 1;
+    }
+    .hero-tv {
+      position: relative; z-index: 2;
+      max-width: 520px; width: 90%;
+    }
+    .hero-tv img { width: 100%; display: block; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem 2.5rem; }
+    .section-eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
+    }
+    .section-headline {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 1.5rem;
+    }
+    .section-headline span { display: block; }
+    .section-body {
+      font-size: 1rem; color: rgba(244,244,242,0.75);
+      max-width: 600px; line-height: 1.7; margin-bottom: 2rem;
+    }
+
+    /* ── TAGS ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem;
+      background: var(--tag-bg); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px; color: var(--muted);
+    }
+
+    /* ── VIDEO GRID (landscape, 2-col) ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .video-wrap {
+      position: relative; width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      background: #111; border-radius: 3px; overflow: hidden;
+    }
+    .video-wrap iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+
+    /* ── VERTICAL VIDEO GRID (3-col portrait) ── */
+    .video-grid-vertical {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .video-wrap-vertical {
+      position: relative; width: 100%;
+      padding-bottom: 177.78%; /* 9:16 */
+      background: #111; border-radius: 3px; overflow: hidden;
+    }
+    .video-wrap-vertical iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+
+    /* ── LIGHT SECTION ── */
+    .section-light {
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+    .section-light .section-eyebrow { color: #888; }
+    .section-light .section-headline { color: var(--text-dark); }
+    .section-light .section-body { color: rgba(14,14,14,0.7); }
+    .section-light .tag {
+      background: rgba(0,0,0,0.06);
+      border-color: rgba(0,0,0,0.12);
+      color: #555;
+    }
+
+    /* ── ACCENT / BLUE SECTION ── */
+    .section-blue {
+      background: #0a1628;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: flex; gap: 3rem; flex-wrap: wrap; margin: 2.5rem 0;
+    }
+    .stat-item .stat-num {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em;
+      color: var(--accent);
+    }
+    .stat-item .stat-label {
+      font-size: 0.8rem; color: var(--muted); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-top: 0.25rem;
+    }
+
+    /* ── QUOTE ── */
+    .pull-quote {
+      font-size: 1.15rem; font-style: italic;
+      color: rgba(244,244,242,0.6);
+      border-left: 3px solid var(--accent);
+      padding-left: 1.25rem; margin: 2rem 0;
+      max-width: 640px;
+    }
+
+    /* ── CTA BUTTONS ── */
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.75rem;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none;
+      border-radius: 2px; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { background: #b8e020; }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.25); color: var(--text-light); }
+    .btn-ghost:hover { border-color: var(--text-light); }
+    .btn-dark { border: 1px solid rgba(0,0,0,0.2); color: var(--text-dark); }
+    .btn-dark:hover { background: rgba(0,0,0,0.08); }
+
+    /* ── FINAL CTA SECTION ── */
+    .section-cta { text-align: center; }
+    .section-cta .section-headline { margin-left: auto; margin-right: auto; }
+    .section-cta .btn-row { justify-content: center; }
+
+    /* ── HEADSHOT ── */
+    .headshot-wrap { margin-top: 3rem; text-align: center; }
+    .headshot-wrap img { width: 160px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.1); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      font-size: 0.8rem; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .video-grid-vertical { grid-template-columns: 1fr; }
+      .stats-row { gap: 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="file:///Users/jayraysparks/Downloads/index.html#">JaySparks.Pro</a>
+  <ul class="nav-links">
+    <li><a href="file:///Users/jayraysparks/Downloads/index.html#work">Work</a></li>
+    <li><a href="file:///Users/jayraysparks/Downloads/index.html#newsletter">Newsletter</a></li>
+    <li><a href="file:///Users/jayraysparks/Downloads/index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-video">
+    <iframe src="./jaypro_index_28-June-update_files/1174200258.html" allow="autoplay; fullscreen"></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-tv">
+    <img src="./jaypro_index_28-June-update_files/JayPro_hero_foreground_frame_1.png" alt="Vintage JVC TV">
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="work">
+  <p class="section-eyebrow">Content Strategy for Competitive Marketers</p>
+  <h1 class="section-headline">
+    <span>Relentless</span>
+    <span>marketing so</span>
+    <span>you can relax.</span>
+  </h1>
+  <p class="section-body">I obsess over the weekly trends in marketing, filter the noise, and engineer solutions for competitive sustainability.</p>
+  <p class="section-body">Are you sick of hearing about AI? I know I sure am. I get sick of shoveling snow too. Yet both seem to just keep coming. In 2026 AI is an avalanche that gets faster as it moves UP hill. And it has buried the pipeline of traditional Search Engine Marketing. Solutions require persistent attention, agility, and creativity applied to the craft of designing systems as much as stopping the scroll.</p>
+</section>
+
+<!-- NEWSLETTER INTRO -->
+<section id="newsletter" class="section-light">
+  <p class="section-eyebrow">Weekly Strategic Blueprints</p>
+  <h2 class="section-headline">
+    <span>Peace of mind</span>
+    <span>means a</span>
+    <span>mindset reboot.</span>
+  </h2>
+  <p class="section-body">My newsletter, "AI Killed the Video Star," is where I share solutions for modern marketing pain points.</p>
+  <p class="section-body">Most of my work is strategically motivated and data-driven. The ability to better leverage mountains of messy data is more within reach than ever, and more important than ever to staying competitive. Here I publish actionable strategies and workflows you can use in your business.</p>
+</section>
+
+<!-- ── NEW: SHORT FORM SOCIAL VIDEO SECTION ── -->
+<section>
+  <p class="section-eyebrow">Short Form Social Video</p>
+  <h2 class="section-headline">
+    <span>Selections from</span>
+    <span>"AI Killed the</span>
+    <span>Video Star"</span>
+  </h2>
+  <div class="video-grid-vertical">
+    <div class="video-wrap-vertical">
+      <iframe src="./jaypro_index_28-June-update_files/1199830850.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap-vertical">
+      <iframe src="./jaypro_index_28-June-update_files/1199829963.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap-vertical">
+      <iframe src="./jaypro_index_28-June-update_files/1199829599.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ── SASQUATCHI (moved up) ── -->
+<section class="section-blue">
+  <p class="section-eyebrow">Generative Influencers for SMB's</p>
+  <h2 class="section-headline">
+    <span>The Sasquatchi Tribe</span>
+    <span>Pump-n-Munch</span>
+  </h2>
+  <div class="tags">
+    <span class="tag">Commercial</span>
+    <span class="tag">AI Animation</span>
+    <span class="tag">Original Score</span>
+    <span class="tag">Q4 2025</span>
+  </div>
+  <p class="section-body">Original image and video shot on location, augmented with existing Meta image assets, animated with a chef's blend of AI models.</p>
+  <p class="section-body">All written copy, scripting, voicing, voice processing, musical composition and editing done by Jay. Shot on location, brought to life with a carefully curated stack of generative AI tools.</p>
+  <div class="video-grid" style="grid-template-columns: 1fr;">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1147777911.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- MOTION / HERO VIDEO 2 -->
+<section>
+  <p class="section-eyebrow">Innovating Strategies for Video</p>
+  <h2 class="section-headline">
+    <span>Motion is</span>
+    <span>the true</span>
+    <span>blue ocean.</span>
+  </h2>
+  <p class="section-body">I started making videos in high school and never stopped. Sometimes I even get paid for it.</p>
+  <p class="section-body">My first job in content marketing was focused on developing business within the indie film scenes of major cities, because broadband was making it possible for the first time to share video files online. Now AI is making video creation capabilities accessible to a wider range of teams than ever. This site is dedicated to featuring some of the videos I've had a hand in making.</p>
+</section>
+
+<!-- VIDEO PODCASTS -->
+<section style="background: var(--bg-mid);">
+  <p class="section-eyebrow">Video for Marketing Lawyers</p>
+  <h2 class="section-headline">
+    <span>Video Podcasts:</span>
+    <span>The New Industry Standard</span>
+  </h2>
+  <div class="tags">
+    <span class="tag">Video Production</span>
+    <span class="tag">Podcast</span>
+    <span class="tag">AI-Augmented</span>
+    <span class="tag">Kaplan AccelPro</span>
+  </div>
+  <p class="section-body">AI tools make video podcasts the most cost-effective form of organic media for small to medium businesses — a production hub around which social production revolves.</p>
+  <p class="section-body"><strong>AccelPro IP Law</strong> — This video podcast feature episode showcases some of AccelPro's best interviews combining their commentary on the subject of "AI &amp; Copyright." Jay produced hundreds of podcasts for AccelPro (Kaplan) featuring expert attorneys on a variety of subjects. For this special episode, Jay created a digest featuring a curated group of guests all speaking about where AI and copyright law meet.</p>
+  <p class="section-body" style="margin-top:1rem;"><strong>AccelPro Employment Law</strong> — How we transformed a Zoom meeting into a live webinar, video podcast &amp; social posts. The full repurposing workflow from raw recording to polished, multi-format deliverable.</p>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013187742.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+
+  <h3 style="margin-top:3rem; margin-bottom:1rem; font-size:1.4rem; font-weight:700;">Video Case Studies</h3>
+  <p class="section-body">Another opportunity to leverage video in legal storytelling is the video case study format like this one.</p>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1012927200.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1012920241.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- DECKSDIRECT -->
+<section>
+  <p class="section-eyebrow">DecksDirect Video Types</p>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1080600751.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1159085933.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1082201421.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1158962722.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+
+  <h2 class="section-headline" style="margin-top:3rem;">
+    <span>From Static to Cinematic:</span>
+    <span>DecksDirect</span>
+  </h2>
+  <div class="tags">
+    <span class="tag">Paid Video Ads</span>
+    <span class="tag">AI Production</span>
+    <span class="tag">Google Demand Gen</span>
+    <span class="tag">OTT</span>
+  </div>
+  <p class="section-body">How AI helped DecksDirect transcend static ads and launch professional video creative in-house — fast, affordably, and scalably.</p>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-num">80%</div><div class="stat-label">Cost Reduction</div></div>
+    <div class="stat-item"><div class="stat-num">67%</div><div class="stat-label">CTR Lift vs Static</div></div>
+    <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Scalable System</div></div>
+  </div>
+  <p class="section-body">This wasn't just a holiday campaign — it was the launch of a scalable, repeatable system for video-first marketing. By blending AI avatars, licensed footage, and self-produced owned video, we eliminated expenses for actors, locations, and crews while achieving professional polish without compromising brand standards.</p>
+  <p class="section-body" style="font-size:0.85rem; color: var(--muted);">Generative assets: GPT-4o, Runway Gen 4, ElevenLabs. Shot on DJI Mini 4 Pro &amp; Sony DSLRs. Music: Logic Pro + Suno. Edit: Adobe Premiere Pro.</p>
+</section>
+
+<!-- EARTH ANIMAL / GET JOY -->
+<section style="background: var(--bg-mid);">
+  <p class="section-eyebrow">Transforming CPG Packaging &amp; UGC into Video Assets</p>
+  <h2 class="section-headline">
+    <span>Customer Reviews as</span>
+    <span>Video Creative</span>
+  </h2>
+  <div class="tags">
+    <span class="tag">Earth Animal</span>
+    <span class="tag">Video Ads</span>
+    <span class="tag">AI Animation</span>
+    <span class="tag">Personalization</span>
+  </div>
+  <p class="section-body">Why force your TOFU audience to seek out your customer reviews when you can leverage them to boost CTR &amp; lower CAC? Jay built a system for Earth Animal and Get Joy that turns existing product assets and customer reviews into a scaled library of breed-personalized video ads.</p>
+  <p class="section-body">Jay took Earth Animal's existing holiday product image assets, deconstructed them, then animated them into a series of videos in different formats leveraging variations in featured dog breeds for more personalized algorithmic strategy.</p>
+  <div class="pull-quote">"If your content reflects your customers, people will see themselves in your brand."</div>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1139374763.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1139374783.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1139374709.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1139374738.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+
+  <h3 style="margin-top:3rem; margin-bottom:1rem; font-size:1.1rem; font-weight:700; color:var(--muted); letter-spacing:0.04em;">Get Joy Video Ads &nbsp;·&nbsp; Review-Led Creative</h3>
+  <p class="section-body">Likewise, Jay took Get Joy's existing product image assets, deconstructed them, then animated them into a series of videos leveraging variations in featured dog breeds. These leverage customer reviews animated onscreen — multiplying assets, publishing frequency, and reach.</p>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1140182725.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1140182792.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- LARS MURRAY / AI AVATARS -->
+<section>
+  <p class="section-eyebrow">Leveraging Human Art in AI Avatars</p>
+  <h2 class="section-headline">
+    <span>A Better Approach</span>
+    <span>to AI Avatars</span>
+  </h2>
+  <div class="tags">
+    <span class="tag">AI Avatars</span>
+    <span class="tag">Runway Act One</span>
+    <span class="tag">Podcast</span>
+    <span class="tag">Lars Murray</span>
+  </div>
+  <p class="section-body">Deep fake avatars are lame. Do this instead.</p>
+  <div class="pull-quote">"Blown away! Wow, Jay!" — Lars Murray, Unlimited Supply Podcast</div>
+  <p class="section-body">Former Pandora exec Lars Murray has created successful products, promotions and businesses for Columbia Records, Sony Music, Virgin, Red Bull, Spotify, Apple, YouTube, Universal, Daft Punk, Pharrell Williams, Gorillaz, and many more.</p>
+  <p class="section-body">Instead of attempting to fool audiences with a deep fake, Jay's team used Runway's Act One to create artfully rendered avatars — engaging the established audience while attracting new members, and preserving the authenticity of Lars' real human presence.</p>
+  <p class="section-body" style="font-size:0.85rem; color:var(--muted);">Workflow: AI image render → Green screen trainer → Runway Act One animation → Descript composite &amp; audio optimization</p>
+  <div class="video-grid" style="grid-template-columns:1fr;">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1046307690.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- THE REBOOTING -->
+<section style="background: var(--bg-mid);">
+  <p class="section-eyebrow">Media Business Talking to &amp; About Itself</p>
+  <h2 class="section-headline">
+    <span>The Rebooting</span>
+    <span>Podcast</span>
+  </h2>
+  <div class="tags">
+    <span class="tag">Podcast Production</span>
+    <span class="tag">Social Video</span>
+    <span class="tag">Original Music</span>
+    <span class="tag">Brian Morrissey</span>
+  </div>
+  <p class="section-body">A podcast for a journalist who makes media about media.</p>
+  <p class="section-body">Brian Morrissey built Digiday into a media industry standard and became known as the voice of its podcasts, then rode the wave of indie journalists becoming Substack entrepreneurs. He needed a new podcast to expand organic reach and build his real product — a community of affluent listeners and high-ticket intimate events.</p>
+  <p class="section-body">Jay approached the design of TRB's podcast soundtrack using analog synthesizers to invoke that era of the past in which we first became fixated on the future. Unlike the "tsunami of content" Brian talked about, TRB's music was 100% original and made by humans.</p>
+  <p class="section-body">In just two years TRB cracked the <strong>seven figure milestone</strong> with a team a fraction of the size it had taken to build Digiday.</p>
+  <div class="pull-quote">"Jay is a highly skilled, highly experienced career digital marketing professional with an emphasis on creative content marketing and out-of-the-box problem solving." — Dick Huey, Toolshed</div>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013742238.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013740070.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+
+  <h3 style="margin-top:3rem; margin-bottom:1.5rem; font-size:1rem; font-weight:700; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Social Clips from The Rebooting</h3>
+  <div class="video-grid">
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013745121.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013745052.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013745073.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013745077.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013745060.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013748635.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013745103.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/1013744831.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="video-wrap">
+      <iframe src="./jaypro_index_28-June-update_files/741277891.html" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact" class="section-cta">
+  <p class="section-eyebrow">Solve Problems. Enjoy Doing It. Enjoy Who You Do It With.</p>
+  <h2 class="section-headline">
+    <span>The world isn't</span>
+    <span>slowing down.</span>
+    <span>Your marketing</span>
+    <span>shouldn't either.</span>
+  </h2>
+  <p class="section-body" style="margin: 0 auto 2rem;">I obsess over the weekly trends in marketing, filter the noise, and engineer solutions for competitive sustainability. If that sounds like what you need, let's talk.</p>
+  <div class="btn-row">
+    <a href="mailto:jrs@evergroup.media" class="btn btn-primary">Get In Touch</a>
+    <a href="https://www.linkedin.com/newsletters/ai-killed-the-video-star-7291330418455261185/" class="btn btn-ghost" target="_blank" rel="noopener">Newsletter</a>
+  </div>
+  <div class="headshot-wrap">
+    <img src="./jaypro_index_28-June-update_files/jay_headshot.jpg" alt="Jay Sparks">
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Evergroup LLC</span>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/jaysparks/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.youtube.com/@AIJay-Pro" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://bsky.app/profile/jaysparks.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+    <a href="https://x.com/EvergroupMedia" target="_blank" rel="noopener">X / Twitter</a>
+  </div>
+</footer>
+
+
+
+</body></html>
