@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)file:///Users/jayraysparks/Downloads/prelude-wine-quiz.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Prelude BTG — Wine Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./prelude-btg-wine-quiz_files/css2" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#FAF6ED;
+    --parchment-2:#F1EAD9;
+    --ink:#2B211C;
+    --ink-soft:#5C5148;
+    --wine:#5C1029;
+    --wine-dark:#3E0A1C;
+    --wine-light:#7A1A38;
+    --gold:#A9822F;
+    --gold-light:#E7D9B4;
+    --sparkling:#8A6D1E;
+    --white-wine:#8C7A2C;
+    --red-wine:#5C1029;
+    --good:#3E6B3E;
+    --bad:#A32D2D;
+    --radius:14px;
+    --shadow: 0 2px 10px rgba(43,33,28,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--parchment);
+    color: var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  #app{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background: var(--parchment);
+    position:relative;
+  }
+  .top{
+    padding:2rem 1.5rem 1rem;
+    text-align:center;
+    border-bottom:1px solid rgba(43,33,28,0.08);
+  }
+  .brand-eyebrow{
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  h1.title{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:28px;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:14px;
+    margin:6px 0 0;
+  }
+  main{
+    flex:1;
+    padding:1.5rem;
+    display:flex;
+    flex-direction:column;
+  }
+  .section-label{
+    font-family:'Fraunces',serif;
+    font-size:15px;
+    font-weight:600;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .cat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:1.75rem;
+  }
+  .cat-card{
+    border:1.5px solid rgba(43,33,28,0.14);
+    background:#fff;
+    border-radius:var(--radius);
+    padding:14px 12px;
+    text-align:left;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    transition:border-color .15s, transform .1s;
+    position:relative;
+  }
+  .cat-card:active{transform:scale(0.98);}
+  .cat-card.selected{
+    border-color:var(--wine);
+    background:#fff;
+    box-shadow:inset 0 0 0 1.5px var(--wine);
+  }
+  .cat-swatch{
+    width:22px;height:22px;border-radius:50%;
+    margin-bottom:10px;
+  }
+  .sw-all{background:linear-gradient(135deg,var(--wine) 0 33%, var(--gold) 33% 66%, var(--white-wine) 66% 100%);}
+  .sw-sparkling{background:var(--sparkling);}
+  .sw-white{background:var(--white-wine);}
+  .sw-red{background:var(--red-wine);}
+  .cat-name{
+    font-weight:600;
+    font-size:14px;
+    display:block;
+  }
+  .cat-count{
+    font-size:12px;
+    color:var(--ink-soft);
+    display:block;
+    margin-top:2px;
+  }
+  .seg{
+    display:flex;
+    border:1.5px solid rgba(43,33,28,0.14);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:2rem;
+    background:#fff;
+  }
+  .seg button{
+    flex:1;
+    border:none;
+    background:transparent;
+    padding:12px 0;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .seg button + button{ border-left:1.5px solid rgba(43,33,28,0.14); }
+  .seg button.selected{
+    background:var(--wine);
+    color:#fff;
+  }
+  .btn-start{
+    background:var(--wine);
+    color:#fff;
+    border:none;
+    border-radius:var(--radius);
+    padding:16px;
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    margin-top:auto;
+  }
+  .btn-start:active{transform:scale(0.99);}
+  .btn-start:disabled{opacity:0.4;}
+  .btn-secondary{
+    background:#fff;
+    color:var(--wine);
+    border:1.5px solid var(--wine);
+    border-radius:var(--radius);
+    padding:14px;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .progress-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:1rem 1.5rem 0;
+  }
+  .progress-track{
+    flex:1;
+    height:6px;
+    background:var(--parchment-2);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--wine);
+    border-radius:4px;
+    transition:width .25s ease;
+  }
+  .progress-num{
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink-soft);
+    min-width:44px;
+    text-align:right;
+  }
+  .q-wrap{
+    padding:1.5rem;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .q-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .q-text{
+    font-family:'Fraunces',serif;
+    font-size:21px;
+    font-weight:500;
+    line-height:1.35;
+    margin:0 0 1.75rem;
+  }
+  .choice{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:#fff;
+    border:1.5px solid rgba(43,33,28,0.14);
+    border-radius:var(--radius);
+    padding:15px 16px;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:500;
+    color:var(--ink);
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:border-color .12s, background .12s;
+  }
+  .choice:active{transform:scale(0.99);}
+  .choice.correct{
+    border-color:var(--good);
+    background:#EEF5EC;
+    color:var(--good);
+  }
+  .choice.incorrect{
+    border-color:var(--bad);
+    background:#FBEAEA;
+    color:var(--bad);
+  }
+  .choice.dim{opacity:0.5;}
+  .choice[disabled]{cursor:default;}
+  .q-footer{
+    margin-top:auto;
+    padding-top:1rem;
+  }
+  .fact{
+    font-size:13px;
+    color:var(--ink-soft);
+    background:var(--parchment-2);
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:1rem;
+    line-height:1.5;
+  }
+  .btn-next{
+    width:100%;
+    background:var(--wine);
+    color:#fff;
+    border:none;
+    border-radius:var(--radius);
+    padding:15px;
+    font-family:'Fraunces',serif;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .results-wrap{
+    padding:1.5rem;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .score-hero{
+    text-align:center;
+    padding:1.75rem 1rem 1.5rem;
+    background:var(--wine);
+    border-radius:16px;
+    color:#fff;
+    margin-bottom:1.5rem;
+  }
+  .score-num{
+    font-family:'Fraunces',serif;
+    font-size:48px;
+    font-weight:600;
+    line-height:1;
+  }
+  .score-label{
+    font-size:13px;
+    opacity:0.85;
+    margin-top:6px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .score-tier{
+    font-family:'Fraunces',serif;
+    font-size:15px;
+    margin-top:12px;
+    color:var(--gold-light);
+  }
+  .review-title{
+    font-family:'Fraunces',serif;
+    font-size:16px;
+    font-weight:600;
+    margin:0 0 10px;
+  }
+  .review-item{
+    border:1px solid rgba(43,33,28,0.12);
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:10px;
+    background:#fff;
+  }
+  .review-q{
+    font-size:13.5px;
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  .review-line{
+    font-size:13px;
+    margin:2px 0;
+  }
+  .review-line.wrong{color:var(--bad);}
+  .review-line.right{color:var(--good);}
+  .empty-review{
+    color:var(--ink-soft);
+    font-size:14px;
+    padding:1rem 0 1.5rem;
+    text-align:center;
+  }
+  .results-actions{
+    margin-top:1rem;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="top">
+    <p class="brand-eyebrow">Prelude · Wine by the Glass</p>
+    <h1 class="title">The Sommelier Test</h1>
+    <p class="subtitle" id="topSubtitle">Know your list before your shift.</p>
+  </div>
+
+  <main id="setupScreen">
+    <p class="section-label">Choose your pour</p>
+    <div class="cat-grid" id="catGrid"><button class="cat-card selected" data-cat="all"><span class="cat-swatch sw-all"></span><span class="cat-name">All wines</span><span class="cat-count">44 wines</span></button><button class="cat-card" data-cat="sparkling"><span class="cat-swatch sw-sparkling"></span><span class="cat-name">Sparkling &amp; Rosé</span><span class="cat-count">7 wines</span></button><button class="cat-card" data-cat="white"><span class="cat-swatch sw-white"></span><span class="cat-name">White</span><span class="cat-count">12 wines</span></button><button class="cat-card" data-cat="red"><span class="cat-swatch sw-red"></span><span class="cat-name">Red</span><span class="cat-count">25 wines</span></button></div>
+
+    <p class="section-label">Questions per round</p>
+    <div class="seg" id="lengthSeg">
+      <button data-len="10" class="selected">10</button>
+      <button data-len="20">20</button>
+      <button data-len="50">50</button>
+    </div>
+
+    <button class="btn-start" id="startBtn">Start tasting →</button>
+  </main>
+
+  <div id="quizScreen" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+      <div class="progress-num" id="progNum">1 / 10</div>
+    </div>
+    <div class="q-wrap">
+      <span class="q-tag" id="qTag">Red</span>
+      <p class="q-text" id="qText"></p>
+      <div id="choicesWrap"></div>
+      <div class="q-footer">
+        <div class="fact hidden" id="qFact"></div>
+        <button class="btn-next hidden" id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultsScreen" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+    <div class="results-wrap">
+      <div class="score-hero">
+        <div class="score-num" id="scoreNum">0/0</div>
+        <div class="score-label">Correct answers</div>
+        <div class="score-tier" id="scoreTier"></div>
+      </div>
+      <p class="review-title">Review your misses</p>
+      <div id="reviewList"></div>
+      <div class="results-actions">
+        <button class="btn-start" id="playAgainBtn" style="margin-top:0;">Play again →</button>
+        <button class="btn-secondary" id="changeSettingsBtn">Change category / length</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const WINES = [
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Château d'Esclans", wine:"Whispering Angel Rosé", vintage:"2024", region:"Côtes de Provence, France", country:"France", variety:"Grenache, Cinsault, Rolle, Syrah, Tibouren", glass:17, bottle:68},
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Cantine Nervi-Conterno", wine:"Gattinara II Rosato", vintage:"2023", region:"Gattinara, Piedmont, Italy", country:"Italy", variety:"Nebbiolo", glass:15, bottle:68},
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Domaine Chandon", wine:"Chandon Brut", vintage:"NV", region:"Napa Valley, California", country:"USA", variety:"Chardonnay, Pinot Noir, Pinot Meunier", glass:14, bottle:70},
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Domaine Chandon", wine:"Chandon Reserve Blanc de Blanc", vintage:"NV", region:"Napa Valley, California", country:"USA", variety:"Chardonnay", glass:16, bottle:80},
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Bisol 1542", wine:"Jeio Prosecco", vintage:"NV", region:"Veneto, Italy", country:"Italy", variety:"Glera", glass:12, bottle:55},
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Veuve Clicquot", wine:"Yellow Label Brut", vintage:"NV", region:"Champagne, France", country:"France", variety:"Pinot Noir, Chardonnay, Pinot Meunier", glass:24, bottle:140},
+  {cat:"sparkling", sub:"Rosé & Sparkling", producer:"Veuve Clicquot", wine:"Rosé", vintage:"NV", region:"Champagne, France", country:"France", variety:"Pinot Noir, Chardonnay, Pinot Meunier", glass:28, bottle:150},
+
+  {cat:"white", sub:"Whites", producer:"Jermann", wine:"Pinot Grigio", vintage:"2024", region:"Friuli, Italy", country:"Italy", variety:"Pinot Grigio", glass:14, bottle:56},
+  {cat:"white", sub:"Whites", producer:"Cakebread Cellars", wine:"Sauvignon Blanc", vintage:"2023", region:"Napa Valley, California", country:"USA", variety:"Sauvignon Blanc", glass:18, bottle:81},
+  {cat:"white", sub:"Whites", producer:"Cloudy Bay", wine:"Sauvignon Blanc", vintage:"2024", region:"Marlborough, New Zealand", country:"New Zealand", variety:"Sauvignon Blanc", glass:16, bottle:76},
+  {cat:"white", sub:"Whites", producer:"Tenuta Roveglia", wine:"Limne Turbiana", vintage:"2024", region:"Lugana, Italy", country:"Italy", variety:"Turbiana (Trebbiano di Lugana)", glass:18, bottle:81},
+  {cat:"white", sub:"Whites", producer:"Calera", wine:"Mt. Harlan Chardonnay", vintage:"2020", region:"Mt. Harlan, California", country:"USA", variety:"Chardonnay", glass:22, bottle:100},
+  {cat:"white", sub:"Whites", producer:"Knights Bridge Winery", wine:"Chardonnay", vintage:"2022", region:"Knights Valley, Sonoma County, California", country:"USA", variety:"Chardonnay", glass:18, bottle:80},
+  {cat:"white", sub:"Whites", producer:"Domaine Leflaive", wine:"Mâcon-Verzé", vintage:"2022", region:"Mâconnais, France", country:"France", variety:"Chardonnay", glass:30, bottle:120},
+  {cat:"white", sub:"Whites", producer:"Domaine Laroche", wine:"Saint Martin Chablis", vintage:"2023", region:"Chablis, Burgundy, France", country:"France", variety:"Chardonnay", glass:18, bottle:81},
+
+  {cat:"white", sub:"Sweet Whites", producer:"Louis Jadot", wine:"Meursault", vintage:"2022", region:"Côte de Beaune, Burgundy, France", country:"France", variety:"Chardonnay", glass:36, bottle:162},
+  {cat:"white", sub:"Sweet Whites", producer:"Salomon Undhof", wine:"Ried Wachtberg Grüner Veltliner", vintage:"2017", region:"Kremstal, Austria", country:"Austria", variety:"Grüner Veltliner", glass:14, bottle:67},
+  {cat:"white", sub:"Sweet Whites", producer:"Château Roumieu", wine:"Sauternes", vintage:"2020", region:"Sauternes, Bordeaux, France", country:"France", variety:"Sémillon, Sauvignon Blanc, Muscadelle", glass:12, bottle:60},
+  {cat:"white", sub:"Sweet Whites", producer:"Château d'Yquem", wine:"Sauternes", vintage:"2016", region:"Sauternes, Bordeaux, France", country:"France", variety:"Sémillon, Sauvignon Blanc", glass:80, bottle:400},
+
+  {cat:"red", sub:"Reds", producer:"GAJA", wine:"Pieve Santa Restituta Brunello", vintage:"2018", region:"Brunello di Montalcino, Tuscany, Italy", country:"Italy", variety:"Sangiovese", glass:32, bottle:165},
+  {cat:"red", sub:"Reds", producer:"Marchesi Antinori", wine:"Tignanello", vintage:"2020", region:"Toscana IGT, Tuscany, Italy", country:"Italy", variety:"Sangiovese, Cabernet Sauvignon, Cabernet Franc", glass:45, bottle:215},
+  {cat:"red", sub:"Reds", producer:"Biondi Santi", wine:"Fascia Rosso di Montalcino", vintage:"2014", region:"Rosso di Montalcino, Tuscany, Italy", country:"Italy", variety:"Sangiovese Grosso", glass:36, bottle:160},
+  {cat:"red", sub:"Reds", producer:"Justin Vineyards", wine:"Isosceles", vintage:"2020", region:"Paso Robles, California", country:"USA", variety:"Cabernet Sauvignon, Cabernet Franc, Merlot", glass:24, bottle:110},
+  {cat:"red", sub:"Reds", producer:"Duckhorn", wine:"Cabernet Sauvignon", vintage:"2022", region:"Napa Valley, California", country:"USA", variety:"Cabernet Sauvignon", glass:26, bottle:120},
+  {cat:"red", sub:"Reds", producer:"Caymus Vineyards", wine:"Cabernet Sauvignon", vintage:"2023", region:"Napa Valley, California", country:"USA", variety:"Cabernet Sauvignon", glass:32, bottle:180},
+  {cat:"red", sub:"Reds", producer:"Louis Jadot", wine:"Nuits-Saint-Georges", vintage:"2022", region:"Côte de Nuits, Burgundy, France", country:"France", variety:"Pinot Noir", glass:30, bottle:135},
+  {cat:"red", sub:"Reds", producer:"Louis Jadot", wine:"Pommard", vintage:"2021", region:"Côte de Beaune, Burgundy, France", country:"France", variety:"Pinot Noir", glass:30, bottle:135},
+  {cat:"red", sub:"Reds", producer:"Terrazas de los Andes", wine:"Reserva Malbec", vintage:"2023", region:"Mendoza, Argentina", country:"Argentina", variety:"Malbec", glass:16, bottle:64},
+  {cat:"red", sub:"Reds", producer:"Stags' Leap Winery", wine:"Merlot", vintage:"2020", region:"Napa Valley, California", country:"USA", variety:"Merlot", glass:16, bottle:72},
+  {cat:"red", sub:"Reds", producer:"Duckhorn", wine:"Merlot", vintage:"2020", region:"Napa Valley, California", country:"USA", variety:"Merlot", glass:20, bottle:90},
+  {cat:"red", sub:"Reds", producer:"Duckhorn", wine:"Three Palms Merlot", vintage:"2020", region:"Napa Valley, California", country:"USA", variety:"Merlot, Cabernet Sauvignon, Cabernet Franc, Petit Verdot", glass:38, bottle:180},
+  {cat:"red", sub:"Reds", producer:"Goldeneye", wine:"Gowan Creek Pinot Noir", vintage:"2019", region:"Anderson Valley, California", country:"USA", variety:"Pinot Noir", glass:30, bottle:140},
+  {cat:"red", sub:"Reds", producer:"Summer Dreams", wine:"Stargazing Pinot Noir", vintage:"2021", region:"Sonoma Coast, California", country:"USA", variety:"Pinot Noir", glass:32, bottle:150},
+  {cat:"red", sub:"Reds", producer:"Domaine Serene", wine:"Yamhill Cuvée Pinot Noir", vintage:"2019", region:"Willamette Valley, Oregon", country:"USA", variety:"Pinot Noir", glass:21, bottle:95},
+  {cat:"red", sub:"Reds", producer:"Albert Bichot", wine:"Bourgogne Pinot Noir", vintage:"2023", region:"Burgundy, France", country:"France", variety:"Pinot Noir", glass:14, bottle:63},
+  {cat:"red", sub:"Reds", producer:"Dakota Shy", wine:"Cabernet Sauvignon", vintage:"2022", region:"Napa Valley, California", country:"USA", variety:"Cabernet Sauvignon", glass:40, bottle:190},
+  {cat:"red", sub:"Reds", producer:"Fortunate Son", wine:"'The Dreamer' Cabernet Sauvignon", vintage:"2018", region:"Napa Valley, California", country:"USA", variety:"Cabernet Sauvignon", glass:42, bottle:230},
+  {cat:"red", sub:"Reds", producer:"Fortunate Son", wine:"'The Warrior' Cabernet Sauvignon", vintage:"2021", region:"Napa Valley, California", country:"USA", variety:"Cabernet Sauvignon", glass:55, bottle:500},
+  {cat:"red", sub:"Reds", producer:"Opus One (Overture)", wine:"Overture", vintage:"2021", region:"Napa Valley, California", country:"USA", variety:"Cabernet Sauvignon, Cabernet Franc, Merlot, Malbec, Petit Verdot", glass:50, bottle:230},
+  {cat:"red", sub:"Reds", producer:"Chateau Latour", wine:"Les Forts de Latour", vintage:"2017", region:"Pauillac, Bordeaux, France", country:"France", variety:"Cabernet Sauvignon, Merlot, Petit Verdot", glass:42, bottle:380},
+  {cat:"red", sub:"Reds", producer:"Chateau Pape Clement", wine:"Château Pape Clement", vintage:"2019", region:"Pessac-Léognan, Bordeaux, France", country:"France", variety:"Cabernet Sauvignon, Merlot, Cabernet Franc, Petit Verdot", glass:30, bottle:200},
+  {cat:"red", sub:"Reds", producer:"GAJA", wine:"Sito Moresco", vintage:"2021", region:"Langhe, Piedmont, Italy", country:"Italy", variety:"Nebbiolo, Merlot, Cabernet Sauvignon", glass:28, bottle:126},
+  {cat:"red", sub:"Reds", producer:"Elvio Cogno", wine:"Ravera Barolo", vintage:"2019", region:"Barolo, Piedmont, Italy", country:"Italy", variety:"Nebbiolo", glass:40, bottle:185},
+  {cat:"red", sub:"Reds", producer:"Cantine Nervi-Conterno", wine:"Gattinara Vigna Valferana", vintage:"2019", region:"Gattinara, Piedmont, Italy", country:"Italy", variety:"Nebbiolo", glass:47, bottle:218},
+];
+
+function fullName(w){ return w.vintage + " " + w.producer + " " + w.wine; }
+function shortName(w){ return w.producer + " " + w.wine; }
+
+function pickDistractors(pool, correct, key, n){
+  const vals = [...new Set(pool.filter(w=>w!==correct).map(w=>key(w)))].filter(v=>v!==key(correct));
+  shuffle(vals);
+  return vals.slice(0,n);
+}
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function buildQuestionBank(pool){
+  const qs = [];
+  pool.forEach(w=>{
+    qs.push({
+      tag:w.sub, wine:w,
+      text:`Which producer makes the ${w.vintage} "${w.wine}"?`,
+      correct: w.producer,
+      distractors: pickDistractors(pool, w, x=>x.producer, 2),
+      fact:`${fullName(w)} — ${w.region}. ${w.variety}. Glass $${w.glass} / Bottle $${w.bottle}.`
+    });
+    qs.push({
+      tag:w.sub, wine:w,
+      text:`What region is ${shortName(w)} from?`,
+      correct: w.region,
+      distractors: pickDistractors(pool, w, x=>x.region, 2),
+      fact:`${fullName(w)} — ${w.region}. ${w.variety}. Glass $${w.glass} / Bottle $${w.bottle}.`
+    });
+    qs.push({
+      tag:w.sub, wine:w,
+      text:`What is the primary grape variety in ${shortName(w)}?`,
+      correct: w.variety,
+      distractors: pickDistractors(pool, w, x=>x.variety, 2),
+      fact:`${fullName(w)} — ${w.region}. ${w.variety}. Glass $${w.glass} / Bottle $${w.bottle}.`
+    });
+    qs.push({
+      tag:w.sub, wine:w,
+      text:`What is the glass price of ${shortName(w)}?`,
+      correct: `$${w.glass}`,
+      distractors: pickDistractors(pool, w, x=>`$${x.glass}`, 2),
+      fact:`${fullName(w)} — ${w.region}. ${w.variety}. Glass $${w.glass} / Bottle $${w.bottle}.`
+    });
+  });
+  return qs.filter(q=>q.distractors.length===2);
+}
+
+const CATS = [
+  {id:"all", name:"All wines", swatch:"sw-all"},
+  {id:"sparkling", name:"Sparkling & Rosé", swatch:"sw-sparkling"},
+  {id:"white", name:"White", swatch:"sw-white"},
+  {id:"red", name:"Red", swatch:"sw-red"},
+];
+
+let state = { cat:"all", len:10, questions:[], idx:0, score:0, missed:[], answered:false };
+
+const catGrid = document.getElementById('catGrid');
+CATS.forEach(c=>{
+  const count = c.id==="all" ? WINES.length : WINES.filter(w=>w.cat===c.id).length;
+  const btn = document.createElement('button');
+  btn.className = 'cat-card' + (c.id===state.cat ? ' selected' : '');
+  btn.dataset.cat = c.id;
+  btn.innerHTML = `<span class="cat-swatch ${c.swatch}"></span><span class="cat-name">${c.name}</span><span class="cat-count">${count} wines</span>`;
+  btn.onclick = () => {
+    state.cat = c.id;
+    document.querySelectorAll('.cat-card').forEach(el=>el.classList.remove('selected'));
+    btn.classList.add('selected');
+  };
+  catGrid.appendChild(btn);
+});
+
+document.querySelectorAll('#lengthSeg button').forEach(btn=>{
+  btn.onclick = () => {
+    state.len = parseInt(btn.dataset.len,10);
+    document.querySelectorAll('#lengthSeg button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  };
+});
+
+document.getElementById('startBtn').onclick = startQuiz;
+document.getElementById('nextBtn').onclick = nextQuestion;
+document.getElementById('playAgainBtn').onclick = () => { showSetup(); };
+document.getElementById('changeSettingsBtn').onclick = () => { showSetup(); };
+
+function startQuiz(){
+  const pool = state.cat === "all" ? WINES : WINES.filter(w=>w.cat===state.cat);
+  if(pool.length < 3){ return; }
+  let bank = buildQuestionBank(pool);
+  shuffle(bank);
+  const n = Math.min(state.len, bank.length);
+  state.questions = bank.slice(0, n);
+  state.idx = 0;
+  state.score = 0;
+  state.missed = [];
+  state.answered = false;
+
+  document.getElementById('setupScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = state.questions[state.idx];
+  const total = state.questions.length;
+  document.getElementById('progFill').style.width = ((state.idx)/total*100)+'%';
+  document.getElementById('progNum').textContent = (state.idx+1)+' / '+total;
+  document.getElementById('qTag').textContent = q.tag;
+  document.getElementById('qText').textContent = q.text;
+
+  const choices = shuffle([q.correct, ...q.distractors]);
+  const wrap = document.getElementById('choicesWrap');
+  wrap.innerHTML = '';
+  choices.forEach(choice=>{
+    const b = document.createElement('button');
+    b.className = 'choice';
+    b.textContent = choice;
+    b.onclick = () => selectAnswer(choice, b);
+    wrap.appendChild(b);
+  });
+
+  document.getElementById('qFact').classList.add('hidden');
+  document.getElementById('nextBtn').classList.add('hidden');
+  state.answered = false;
+}
+
+function selectAnswer(choice, el){
+  if(state.answered) return;
+  state.answered = true;
+  const q = state.questions[state.idx];
+  const isCorrect = choice === q.correct;
+  if(isCorrect){ state.score++; } else {
+    state.missed.push({ text:q.text, given:choice, correct:q.correct });
+  }
+  document.querySelectorAll('.choice').forEach(btn=>{
+    btn.disabled = true;
+    if(btn.textContent === q.correct){ btn.classList.add('correct'); }
+    else if(btn.textContent === choice){ btn.classList.add('incorrect'); }
+    else { btn.classList.add('dim'); }
+  });
+  const fact = document.getElementById('qFact');
+  fact.textContent = q.fact;
+  fact.classList.remove('hidden');
+  document.getElementById('nextBtn').classList.remove('hidden');
+  document.getElementById('nextBtn').textContent = (state.idx+1 < state.questions.length) ? 'Next →' : 'See results →';
+}
+
+function nextQuestion(){
+  state.idx++;
+  if(state.idx >= state.questions.length){
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults(){
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+  const total = state.questions.length;
+  document.getElementById('scoreNum').textContent = state.score+'/'+total;
+  const pct = Math.round(state.score/total*100);
+  let tier = "Keep tasting.";
+  if(pct === 100) tier = "Perfect pour. Sommelier-level.";
+  else if(pct >= 85) tier = "Excellent — floor ready.";
+  else if(pct >= 65) tier = "Solid grasp, a bit more study.";
+  else tier = "Back to the list before your next shift.";
+  document.getElementById('scoreTier').textContent = pct+'% — '+tier;
+
+  const list = document.getElementById('reviewList');
+  list.innerHTML = '';
+  if(state.missed.length === 0){
+    list.innerHTML = '<p class="empty-review">No misses. Clean sweep.</p>';
+  } else {
+    state.missed.forEach(m=>{
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = `<p class="review-q">${m.text}</p>
+        <p class="review-line wrong">Your answer: ${m.given}</p>
+        <p class="review-line right">Correct: ${m.correct}</p>`;
+      list.appendChild(div);
+    });
+  }
+}
+
+function showSetup(){
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('setupScreen').classList.remove('hidden');
+}
+</script>
+
+
+</body></html>
