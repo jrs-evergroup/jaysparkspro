@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0065)file:///Users/jayraysparks/Downloads/prelude-btg-wine-quiz_1.html -->
+<!-- saved from url=(0065)file:///Users/jayraysparks/Downloads/prelude-btg-wine-quiz_2.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -159,7 +159,7 @@
     font-weight:600;
     cursor:pointer;
     box-shadow:var(--shadow);
-    margin-top:auto;
+    margin-top:0.5rem;
   }
   .btn-start:active{transform:scale(0.99);}
   .btn-start:disabled{opacity:0.4;}
@@ -252,8 +252,8 @@
   .choice.dim{opacity:0.5;}
   .choice[disabled]{cursor:default;}
   .q-footer{
-    margin-top:auto;
-    padding-top:1rem;
+    margin-top:0.5rem;
+    padding-top:0.5rem;
   }
   .fact{
     font-size:13px;
@@ -357,9 +357,9 @@
     <p class="subtitle" id="topSubtitle">Know your list before your shift.</p>
   </div>
 
-  <main id="setupScreen">
+  <main id="setupScreen" class="hidden">
     <p class="section-label">Choose your pour</p>
-    <div class="cat-grid" id="catGrid"><button class="cat-card selected" data-cat="all"><span class="cat-swatch sw-all"></span><span class="cat-name">All wines</span><span class="cat-count">44 wines</span></button><button class="cat-card" data-cat="sparkling"><span class="cat-swatch sw-sparkling"></span><span class="cat-name">Sparkling &amp; Rosé</span><span class="cat-count">7 wines</span></button><button class="cat-card" data-cat="white"><span class="cat-swatch sw-white"></span><span class="cat-name">White</span><span class="cat-count">12 wines</span></button><button class="cat-card" data-cat="red"><span class="cat-swatch sw-red"></span><span class="cat-name">Red</span><span class="cat-count">25 wines</span></button></div>
+    <div class="cat-grid" id="catGrid"><button class="cat-card" data-cat="all"><span class="cat-swatch sw-all"></span><span class="cat-name">All wines</span><span class="cat-count">44 wines</span></button><button class="cat-card" data-cat="sparkling"><span class="cat-swatch sw-sparkling"></span><span class="cat-name">Sparkling &amp; Rosé</span><span class="cat-count">7 wines</span></button><button class="cat-card" data-cat="white"><span class="cat-swatch sw-white"></span><span class="cat-name">White</span><span class="cat-count">12 wines</span></button><button class="cat-card selected" data-cat="red"><span class="cat-swatch sw-red"></span><span class="cat-name">Red</span><span class="cat-count">25 wines</span></button></div>
 
     <p class="section-label">Questions per round</p>
     <div class="seg" id="lengthSeg">
@@ -373,29 +373,35 @@
 
   <div id="quizScreen" class="hidden" style="display:flex;flex-direction:column;flex:1;">
     <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
-      <div class="progress-num" id="progNum">1 / 10</div>
+      <div class="progress-track"><div class="progress-fill" id="progFill" style="width: 90%;"></div></div>
+      <div class="progress-num" id="progNum">10 / 10</div>
     </div>
     <div class="q-wrap">
-      <span class="q-tag" id="qTag">Red</span>
-      <p class="q-text" id="qText"></p>
-      <div id="choicesWrap"></div>
+      <span class="q-tag" id="qTag">Reds</span>
+      <p class="q-text" id="qText">What tasting notes are most associated with GAJA Sito Moresco?</p>
+      <div id="choicesWrap"><button class="choice correct" disabled="">red cherry, wild strawberry, fresh herbs</button><button class="choice incorrect" disabled="">black currant, cigar box, sweet smoke</button><button class="choice dim" disabled="">wild cherry, orange peel, rose petal</button></div>
       <div class="q-footer">
-        <div class="fact hidden" id="qFact"></div>
-        <button class="btn-next hidden" id="nextBtn">Next →</button>
+        <div class="fact" id="qFact">2021 GAJA Sito Moresco — tasting notes: red cherry, wild strawberry, fresh herbs. Style: silky, floral. Langhe, Piedmont, Italy.</div>
+        <button class="btn-next" id="nextBtn">See results →</button>
       </div>
     </div>
   </div>
 
-  <div id="resultsScreen" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+  <div id="resultsScreen" class="" style="display:flex;flex-direction:column;flex:1;">
     <div class="results-wrap">
       <div class="score-hero">
-        <div class="score-num" id="scoreNum">0/0</div>
+        <div class="score-num" id="scoreNum">7/10</div>
         <div class="score-label">Correct answers</div>
-        <div class="score-tier" id="scoreTier"></div>
+        <div class="score-tier" id="scoreTier">70% — Solid grasp, a bit more study.</div>
       </div>
       <p class="review-title">Review your misses</p>
-      <div id="reviewList"></div>
+      <div id="reviewList"><div class="review-item"><p class="review-q">Which wine on our list is known for being plush, juicy?</p>
+        <p class="review-line wrong">Your answer: Justin Vineyards Isosceles</p>
+        <p class="review-line right">Correct: Terrazas de los Andes Reserva Malbec</p></div><div class="review-item"><p class="review-q">What is the primary grape variety in Biondi Santi Fascia Rosso di Montalcino?</p>
+        <p class="review-line wrong">Your answer: Nebbiolo, Merlot, Cabernet Sauvignon</p>
+        <p class="review-line right">Correct: Sangiovese Grosso</p></div><div class="review-item"><p class="review-q">What tasting notes are most associated with GAJA Sito Moresco?</p>
+        <p class="review-line wrong">Your answer: black currant, cigar box, sweet smoke</p>
+        <p class="review-line right">Correct: red cherry, wild strawberry, fresh herbs</p></div></div>
       <div class="results-actions">
         <button class="btn-start" id="playAgainBtn" style="margin-top:0;">Play again →</button>
         <button class="btn-secondary" id="changeSettingsBtn">Change category / length</button>
