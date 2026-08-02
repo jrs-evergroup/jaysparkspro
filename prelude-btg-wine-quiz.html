@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///Users/jayraysparks/Downloads/prelude-wine-quiz.html -->
+<!-- saved from url=(0063)file:///Users/jayraysparks/Downloads/prelude-btg-wine-quiz.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -359,7 +359,7 @@
 
   <main id="setupScreen">
     <p class="section-label">Choose your pour</p>
-    <div class="cat-grid" id="catGrid"><button class="cat-card selected" data-cat="all"><span class="cat-swatch sw-all"></span><span class="cat-name">All wines</span><span class="cat-count">44 wines</span></button><button class="cat-card" data-cat="sparkling"><span class="cat-swatch sw-sparkling"></span><span class="cat-name">Sparkling &amp; Rosé</span><span class="cat-count">7 wines</span></button><button class="cat-card" data-cat="white"><span class="cat-swatch sw-white"></span><span class="cat-name">White</span><span class="cat-count">12 wines</span></button><button class="cat-card" data-cat="red"><span class="cat-swatch sw-red"></span><span class="cat-name">Red</span><span class="cat-count">25 wines</span></button></div>
+    <div class="cat-grid" id="catGrid"><button class="cat-card" data-cat="all"><span class="cat-swatch sw-all"></span><span class="cat-name">All wines</span><span class="cat-count">44 wines</span></button><button class="cat-card" data-cat="sparkling"><span class="cat-swatch sw-sparkling"></span><span class="cat-name">Sparkling &amp; Rosé</span><span class="cat-count">7 wines</span></button><button class="cat-card selected" data-cat="white"><span class="cat-swatch sw-white"></span><span class="cat-name">White</span><span class="cat-count">12 wines</span></button><button class="cat-card" data-cat="red"><span class="cat-swatch sw-red"></span><span class="cat-name">Red</span><span class="cat-count">25 wines</span></button></div>
 
     <p class="section-label">Questions per round</p>
     <div class="seg" id="lengthSeg">
@@ -517,6 +517,7 @@ const CATS = [
 let state = { cat:"all", len:10, questions:[], idx:0, score:0, missed:[], answered:false };
 
 const catGrid = document.getElementById('catGrid');
+catGrid.innerHTML = '';
 CATS.forEach(c=>{
   const count = c.id==="all" ? WINES.length : WINES.filter(w=>w.cat===c.id).length;
   const btn = document.createElement('button');
